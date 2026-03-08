@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>镜像庄园 · 人格色彩测试</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #1a0f1c 0%, #2d1b2f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            color: #f0e6d8;
+        }
+
+        .test-container {
+            max-width: 620px;
+            width: 100%;
+            background: rgba(30, 20, 30, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(210, 180, 140, 0.3);
+            border-radius: 36px;
+            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 215, 140, 0.15);
+            padding: 28px 22px;
+            transition: all 0.2s ease;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #f3dfb3, #cbad7e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .header h2 {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #c1a078;
+            border-bottom: 1px dashed #5f4b3a;
+            padding-bottom: 16px;
+            margin: 0 20px;
+            font-style: italic;
+        }
+
+        .progress-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 12px;
+            font-size: 0.9rem;
+            color: #bba88b;
+        }
+
+        .progress-bar-bg {
+            flex: 1;
+            height: 6px;
+            background: #3a2a2f;
+            border-radius: 20px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #e3b87c, #b8865b);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px #e4b87c;
+        }
+
+        .question-num {
+            font-weight: 300;
+            background: #34242b;
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid #65503b;
+            font-size: 0.9rem;
+        }
+
+        .card {
+            background: rgba(25, 15, 22, 0.7);
+            border: 1px solid #4f3e30;
+            border-radius: 32px;
+            padding: 26px 18px 18px;
+            margin: 18px 0 16px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 10px 15px -5px #0a0709;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 28px;
+            padding-left: 8px;
+            color: #f7e7d3;
+            text-shadow: 0 1px 2px black;
+            min-height: 4rem;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(20, 12, 18, 0.8);
+            border: 1.5px solid #67513e;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            text-align: left;
+            color: #eadbc5;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+        }
+
+        .option-btn:hover {
+            background: #3d2b2c;
+            border-color: #b4946a;
+            transform: scale(1.01);
+        }
+
+        .option-btn.selected {
+            background: #4f342e;
+            border-color: #e9c591;
+            box-shadow: 0 0 15px #ba8b5a, inset 0 0 5px #ffeedd;
+        }
+
+        .option-prefix {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: #c8a87c;
+            min-width: 40px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px black);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0 10px;
+        }
+
+        .nav-btn {
+            background: rgba(40, 28, 32, 0.9);
+            border: 1px solid #7e6953;
+            color: #eedbcb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            backdrop-filter: blur(4px);
+            letter-spacing: 1px;
+            box-shadow: 0 5px 10px #0b0709;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            border-color: #4a4038;
+        }
+
+        .nav-btn:not(:disabled):hover {
+            background: #5f423b;
+            border-color: #ddb582;
+            color: #fff4e2;
+        }
+
+        .restart-btn {
+            background: transparent;
+            border: 1px solid #7e6953;
+            color: #b9a182;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.15s;
+            margin-top: 15px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .restart-btn:hover {
+            background: #2f1f21;
+            color: #f0dbb8;
+            border-color: #cfa668;
+        }
+
+        .result-area {
+            background: rgba(25, 15, 20, 0.8);
+            border-radius: 36px;
+            padding: 30px 22px;
+            border: 1px solid #7b6246;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #fad39c;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px #b47d56;
+        }
+
+        .result-sub {
+            font-size: 1.5rem;
+            color: #cfa668;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #6a4f38;
+            padding-bottom: 20px;
+            font-style: italic;
+        }
+
+        .result-desc {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #f0deca;
+            background: rgba(10, 5, 8, 0.5);
+            padding: 24px 20px;
+            border-radius: 28px;
+            border-left: 6px solid #c6a173;
+            text-align: left;
+            margin: 15px 0;
+        }
+
+        .traits-tag {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 28px 0 12px;
+        }
+
+        .trait-pill {
+            background: #352a28;
+            border: 1px solid #9e856b;
+            color: #ebd7b9;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #6f5d4c;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .attribution {
+            margin-top: 8px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="test-container" id="testContainer">
+    <div class="header">
+        <h1>镜像庄园</h1>
+        <h2>✦ 人格色彩投射测试 ✦</h2>
+    </div>
+
+    <!-- 题目区域 (动态显示) -->
+    <div id="quizArea">
+        <div class="progress-area">
+            <span class="question-num" id="questionCounter">第 1 / 10 题</span>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progressFill" style="width: 10%;"></div>
+            </div>
+        </div>
+
+        <div class="card" id="questionCard">
+            <div class="question-text" id="questionText">加载中...</div>
+            <div class="options-grid" id="optionsContainer"></div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn" disabled>◀ 上一题</button>
+            <button class="nav-btn" id="nextBtn">下一题 ▶</button>
+        </div>
+    </div>
+
+    <!-- 结果区域 (初始隐藏) -->
+    <div id="resultArea" class="result-area hidden">
+        <div class="result-title" id="resultTypeTitle"></div>
+        <div class="result-sub" id="resultTypeSub"></div>
+        <div class="result-desc" id="resultDescription"></div>
+        <div class="traits-tag" id="resultTraits"></div>
+        <button class="restart-btn" id="restartBtn">⟲ 重新探索庄园</button>
+    </div>
+
+    <div class="footer">✨ 跟随直觉 映照内心 ✨</div>
+</div>
+
+<script>
+    (function() {
+        // ---------- 定义所有特质（37个）-----------
+        const TRAITS = [
+            "社交者", "探索者", "沉思者", "温暖型", "洞察型", "平静型", "感性型", "自然型", "艺术型",
+            "理想派", "清明派", "怀旧派", "冒险派", "乐观者", "果敢者", "求真者", "神秘者", "自信型",
+            "自省型", "反叛型", "迷茫型", "掌控者", "细节者", "自由者", "稳定者", "主导型", "观察型",
+            "安全型", "随和型", "主动型", "谨慎型", "信赖型", "防御型", "留念者", "播种者", "自观者", "寻门者"
+        ];
+
+        // ---------- 12种人格色彩定义 ----------
+        const COLOR_TYPES = [
+            { name: "赤焰型 · 开拓者", traits: ["社交者", "主导型", "果敢者"], desc: "你是天生的引领者，喜欢站在舞台中央。你果断、自信，相信自己的判断。但你需要注意，有时走得太快，会忘了身后的人。" },
+            { name: "砖红型 · 守护者", traits: ["稳定者", "防御型", "安全型"], desc: "你重视规则和安全，是朋友中最可靠的存在。你像一堵墙，为所爱之人遮风挡雨。但你的内心偶尔渴望一次没有计划的冒险。" },
+            { name: "朱红型 · 热情者", traits: ["温暖型", "感性型", "主动型"], desc: "你是人群中的小太阳，情感丰富且外露。你喜欢与人建立深刻的链接，也容易感受到他人的情绪。记得守护好自己的能量场。" },
+            { name: "深海型 · 沉思者", traits: ["沉思者", "平静型", "自省型"], desc: "你喜欢独处，内心世界深邃广阔。你习惯观察而非参与，思考而非表达。你的沉默里藏着大智慧。" },
+            { name: "靛蓝型 · 求真者", traits: ["洞察型", "求真者", "细节者"], desc: "你无法忍受模棱两可，凡事都要追根究底。你拥有看透本质的能力，但也容易因为看得太清而活得较累。" },
+            { name: "宝石蓝型 · 艺术者", traits: ["艺术型", "怀旧派", "感性型"], desc: "你敏感细腻，能从生活的缝隙中发现美。你活在自己的审美里，有时会怀念回不去的过去。你是现实世界的浪漫诗人。" },
+            { name: "翠绿型 · 自然者", traits: ["自然型", "清明派", "随和型"], desc: "你向往自由和真实，讨厌虚伪和做作。你像一阵风，随遇而安，但又有着自己的方向。" },
+            { name: "薄荷型 · 疗愈者", traits: ["温暖型", "信赖型", "播种者"], desc: "你天生带着安抚人心的气质。你喜欢帮助他人成长，像园丁一样耐心。但你的温柔需要带点锋芒，才不会被辜负。" },
+            { name: "橄榄型 · 观察者", traits: ["探索者", "观察型", "细节者"], desc: "你总是站在不远处，静静地看清一切。你不急于参与，享受旁观世界的乐趣。你是最好的倾听者和分析者。" },
+            { name: "紫罗兰型 · 直觉者", traits: ["洞察型", "神秘者", "迷茫型"], desc: "你有很强的第六感，常常能预感到事情的发生。你身上带着一层神秘的面纱，有时连自己都看不透自己。" },
+            { name: "紫水晶型 · 寻梦者", traits: ["冒险派", "自由者", "寻门者"], desc: "你渴望探索未知，不甘于平庸的生活。你相信远方有使命在等你。你的残缺感是你的动力。" },
+            { name: "极光紫型 · 蜕变者", traits: ["反叛型", "自观者", "探索者"], desc: "你讨厌被定义，总是在打破重塑的过程中。你像极光一样多变、绚烂、不可预测。你的人生信条是：永远不被框住。" }
+        ];
+
+        // ---------- 题目数据 (10题) 完全按照之前的设计 ----------
+        const QUESTIONS = [
+            { // 1
+                text: "你站在庄园大门前，有三条小路通向主建筑。你会选择哪一条？",
+                options: [
+            { label: "A", text: "铺满白色鹅卵石、笔直开阔的大道", effects: { "社交者": 3 } },
+            { label: "B", text: "两旁种满玫瑰、蜿蜒曲折的小径", effects: { "探索者": 3 } },
+            { label: "C", text: "落叶覆盖、几乎看不出路的林间小道", effects: { "沉思者": 3 } }
+                ]
+            },
+            { // 2
+                text: "走进门厅，墙上挂着一幅巨大的油画。画中人的眼睛似乎正注视着你。你觉得那是一双什么样的眼睛？",
+                options: [
+            { label: "A", text: "温柔含笑，充满暖意", effects: { "温暖型": 2 } },
+            { label: "B", text: "深邃锐利，仿佛能看穿一切", effects: { "洞察型": 2 } },
+            { label: "C", text: "平静如水，无悲无喜", effects: { "平静型": 2 } }
+                ]
+            },
+            { // 3
+                text: "你走上楼梯，转角处有一扇半开的窗。窗外传来声音。你更希望听到什么？",
+                options: [
+            { label: "A", text: "孩子们的欢笑声", effects: { "感性型": 2 } },
+            { label: "B", text: "风吹过树叶的沙沙声", effects: { "自然型": 2 } },
+            { label: "C", text: "远处的钢琴曲", effects: { "艺术型": 2 } }
+                ]
+            },
+            { // 4
+                text: "你推开一扇门，发现这是一个奇特的房间——里面摆放着四个容器，分别装着不同的东西。哪个最吸引你？",
+                options: [
+            { label: "A", text: "透明的玻璃缸，里面游动着发光的金色小鱼", effects: { "理想派": 1 } },
+            { label: "B", text: "古老的铜盆，盛着清澈见底的水", effects: { "清明派": 1 } },
+            { label: "C", text: "粗糙的陶罐，插着几枝枯萎的干花", effects: { "怀旧派": 1 } },
+            { label: "D", text: "紧闭的铁盒，你不知道里面装了什么", effects: { "冒险派": 1 } }
+                ]
+            },
+            { // 5
+                text: "书房里有一张古老的写字台。你拉开抽屉，发现一张发黄的纸条，上面隐约写着几个字。你觉得最可能是？",
+                options: [
+            { label: "A", text: "记得微笑", effects: { "乐观者": 2 } },
+            { label: "B", text: "不要回头", effects: { "果敢者": 2 } },
+            { label: "C", text: "真相在此", effects: { "求真者": 2 } },
+            { label: "D", text: "（字迹模糊，完全看不清）", effects: { "神秘者": 2 } }
+                ]
+            },
+            { // 6
+                text: "你来到著名的“镜厅”。四面都是镜子，但你发现其中一面有些不同。它会？",
+                options: [
+            { label: "A", text: "把你照得比实际更好看", effects: { "自信型": 2 } },
+            { label: "B", text: "把你照得比实际更疲惫", effects: { "自省型": 2 } },
+            { label: "C", text: "镜中的你，姿势和你不一样", effects: { "反叛型": 2 } },
+            { label: "D", text: "镜面模糊，根本看不清自己", effects: { "迷茫型": 2 } }
+                ]
+            },
+            { // 7
+                text: "花园的角落，你看到一张长椅。长椅旁边掉落了一样东西。你捡起来，觉得会是？",
+                options: [
+            { label: "A", text: "一枚银色的怀表（时间静止了）", effects: { "掌控者": 2 } },
+            { label: "B", text: "一片完整的枫叶（脉络清晰）", effects: { "细节者": 2 } },
+            { label: "C", text: "一根纯白的羽毛（轻盈柔软）", effects: { "自由者": 2 } },
+            { label: "D", text: "一颗光滑的鹅卵石（温润冰凉）", effects: { "稳定者": 2 } }
+                ]
+            },
+            { // 8
+                text: "庄园主人邀请你共进晚餐。长长的餐桌上，你会选择坐在哪个位置？",
+                options: [
+            { label: "A", text: "紧挨着主人的右手边", effects: { "主导型": 2 } },
+            { label: "B", text: "离主人稍远，但靠近窗户的位置", effects: { "观察型": 2 } },
+            { label: "C", text: "餐桌最末端，靠近门口的地方", effects: { "安全型": 2 } },
+            { label: "D", text: "无所谓，哪里有空位坐哪里", effects: { "随和型": 2 } }
+                ]
+            },
+            { // 9
+                text: "深夜，你独自在客房休息。隐约听到走廊里有脚步声。你的第一反应是？",
+                options: [
+            { label: "A", text: "好奇，想开门看看是谁", effects: { "主动型": 2 } },
+            { label: "B", text: "有些紧张，假装睡着了", effects: { "谨慎型": 2 } },
+            { label: "C", text: "很安心，可能是管家在巡查", effects: { "信赖型": 2 } },
+            { label: "D", text: "警觉，拿起旁边的台灯防身", effects: { "防御型": 2 } }
+                ]
+            },
+            { // 10
+                text: "你要离开了。庄园主人送你一份临别礼物，让你从以下四样中选择一样带走：",
+                options: [
+            { label: "A", text: "一枚刻着你名字首字母的铜质书签", effects: { "留念者": 3 } },
+            { label: "B", text: "一个装满各种种子的小布袋", effects: { "播种者": 3 } },
+            { label: "C", text: "一面只有掌心大小的随身镜子", effects: { "自观者": 3 } },
+            { label: "D", text: "一把打不开任何锁的古老钥匙", effects: { "寻门者": 3 } }
+                ]
+            }
+        ];
+
+        // ---------- 全局变量 ----------
+        let currentIndex = 0;               // 0-based
+        let answers = new Array(10).fill(null); // 每道题所选选项的索引 (0~选项长度-1)
+        const totalQuestions = QUESTIONS.length;
+
+        // 获取DOM元素
+        const quizArea = document.getElementById('quizArea');
+        const resultArea = document.getElementById('resultArea');
+        const questionCounter = document.getElementById('questionCounter');
+        const progressFill = document.getElementById('progressFill');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const restartBtn = document.getElementById('restartBtn');
+
+        const resultTypeTitle = document.getElementById('resultTypeTitle');
+        const resultTypeSub = document.getElementById('resultTypeSub');
+        const resultDescription = document.getElementById('resultDescription');
+        const resultTraits = document.getElementById('resultTraits');
+
+        // ---------- 辅助函数：重新计算所有特质分数 ----------
+        function calculateScores() {
+            const scores = {};
+            TRAITS.forEach(t => scores[t] = 0);
+
+            for (let i = 0; i < answers.length; i++) {
+                const ansIdx = answers[i];
+                if (ansIdx === null) continue;
+                const effects = QUESTIONS[i].options[ansIdx].effects;
+                for (let [trait, value] of Object.entries(effects)) {
+                    if (scores.hasOwnProperty(trait)) {
+                        scores[trait] += value;
+                    } else {
+                        // 万一有未定义的特质，忽略
+                        console.warn('unknown trait', trait);
+                    }
+                }
+            }
+            return scores;
+        }
+
+        // 获取得分最高的三个特质 (按分数降序，同分时按特质名字母序保证唯一)
+        function getTopThreeTraits(scores) {
+            const sorted = Object.entries(scores)
+                .filter(([_, score]) => score > 0)
+                .sort((a, b) => {
+                    if (b[1] !== a[1]) return b[1] - a[1];
+                    return a[0].localeCompare(b[0]); // 同分按字母稳定
+                });
+            const topTraits = sorted.slice(0, 3).map(item => item[0]);
+            // 如果不足3个，补一些默认的？但一般至少有几个特质有分，补个空也行
+            while (topTraits.length < 3) topTraits.push('平静型'); // 极少情况，补默认
+            return topTraits;
+        }
+
+        // 根据前三特质匹配人格色彩
+        function matchColorType(topTraits) {
+            const topSet = new Set(topTraits);
+            let bestMatch = null;
+            let maxOverlap = -1;
+
+            for (let type of COLOR_TYPES) {
+                const typeSet = new Set(type.traits);
+                const overlap = [...topSet].filter(t => typeSet.has(t)).length;
+                if (overlap > maxOverlap) {
+                    maxOverlap = overlap;
+                    bestMatch = type;
+                }
+            }
+
+            // 如果重叠0（理论上不可能，因为有很多共有特质），但保底返回第一个
+            return bestMatch || COLOR_TYPES[0];
+        }
+
+        // 更新界面：显示当前题目、高亮已选、更新进度
+        function renderQuestion() {
+            const q = QUESTIONS[currentIndex];
+            questionText.innerText = q.text;
+
+            // 生成选项按钮
+            let htmlStr = '';
+            q.options.forEach((opt, idx) => {
+                const selectedClass = (answers[currentIndex] === idx) ? 'selected' : '';
+                htmlStr += `
+                    <div class="option-btn ${selectedClass}" data-opt-index="${idx}">
+                        <span class="option-prefix">${opt.label}</span>
+                        <span>${opt.text}</span>
+                    </div>
+                `;
+            });
+            optionsContainer.innerHTML = htmlStr;
+
+            // 为每个选项绑定点击事件
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const optIdx = parseInt(btn.dataset.optIndex, 10);
+                    if (answers[currentIndex] === optIdx) {
+                        // 如果已选中，点同一项可以取消？但一般不允许取消，最好保持选中，但可以不做处理，或者允许取消（但为了体验，我们允许取消，但建议不让取消，因为需要选一个）
+                        // 这里允许取消，但可能最后结果会有题目未选。我们为了严谨，可以不允许取消：点同一项不做变更。
+                        // 但为了用户修改方便，可以取消后必须选另一个，但为了简化，我们允许重新选择，但不会取消（即只有选中其他项才会变）。
+                        // 处理：如果点同一个，不做改变。
+                        return;
+                    }
+                    // 更新答案
+                    answers[currentIndex] = optIdx;
+                    // 重新渲染当前题（更新高亮）
+                    renderQuestion();
+                    // 更新下一题按钮状态等
+                    updateNavButtons();
+                });
+            });
+
+            // 更新计数器和进度条
+            questionCounter.innerText = `第 ${currentIndex+1} / ${totalQuestions} 题`;
+            const progressPercent = ((currentIndex + 1) / totalQuestions) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+
+            // 更新上一题/下一题按钮状态
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            prevBtn.disabled = (currentIndex === 0);
+            // 如果有下一题，启用；否则变成“完成”
+            if (currentIndex === totalQuestions - 1) {
+                nextBtn.innerText = '✨ 完成测试';
+            } else {
+                nextBtn.innerText = '下一题 ▶';
+            }
+        }
+
+        // 下一题/上一题逻辑
+        function goNext() {
+            if (currentIndex < totalQuestions - 1) {
+                if (answers[currentIndex] === null) {
+                    alert('请先选择当前选项，再继续庄园之旅~');
+                    return;
+                }
+                currentIndex++;
+                renderQuestion();
+            } else {
+                // 已经是最后一题，准备查看结果
+                if (answers[currentIndex] === null) {
+                    alert('最后一道题也请留下您的选择。');
+                    return;
+                }
+                showResult();
+            }
+        }
+
+        function goPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+            }
+        }
+
+        // 显示结果页面
+        function showResult() {
+            const scores = calculateScores();
+            const topThree = getTopThreeTraits(scores);
+            const matchedType = matchColorType(topThree);
+
+            // 填充结果区域
+            const typeNameParts = matchedType.name.split(' · ');
+            resultTypeTitle.innerText = typeNameParts[0] || '赤焰型';
+            resultTypeSub.innerText = '· ' + (typeNameParts[1] || '开拓者') + ' ·';
+            resultDescription.innerText = matchedType.desc;
+
+            // 显示前三特质标签
+            let traitsHtml = '';
+            topThree.forEach(t => {
+                traitsHtml += `<span class="trait-pill">${t}</span>`;
+            });
+            resultTraits.innerHTML = traitsHtml;
+
+            // 隐藏题目区域，显示结果
+            quizArea.classList.add('hidden');
+            resultArea.classList.remove('hidden');
+        }
+
+        // 重新开始测试
+        function restartTest() {
+            answers = new Array(10).fill(null);
+            currentIndex = 0;
+            renderQuestion();
+            quizArea.classList.remove('hidden');
+            resultArea.classList.add('hidden');
+        }
+
+        // 绑定事件
+        prevBtn.addEventListener('click', goPrev);
+        nextBtn.addEventListener('click', goNext);
+        restartBtn.addEventListener('click', restartTest);
+
+        // 初始渲染
+        renderQuestion();
+
+        // 处理未选不能直接下一题的逻辑已经在goNext中
+        // 额外：允许通过上一题修改答案，答案存储正确。
+    })();
+</script>
+</body>
+</html>
