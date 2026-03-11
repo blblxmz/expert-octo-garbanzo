@@ -3,360 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>精神图景 · 锚点</title>
+    <title>精神图景 · 双界 · 锚点（完整双视角）</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: "Consolas", "Courier New", monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 10px;
-            max-width: 100vw;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .header {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333;
-        }
-        .header-title {
-            font-size: clamp(16px, 3vw, 22px);
-            color: #00d9c0;
-            font-weight: bold;
-        }
-        .header-sub {
-            font-size: clamp(10px, 1.5vw, 12px);
-            color: #888;
-        }
-
-        .main-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .top-function-area {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .top-function-area {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-            }
-            .full-width {
-                grid-column: span 2;
-            }
-        }
-
-        .card {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px;
-            width: 100%;
-        }
-        .card-title {
-            font-size: clamp(12px, 1.8vw, 14px);
-            color: #888;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .progress-item {
-            margin-bottom: 12px;
-        }
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: clamp(10px, 1.5vw, 12px);
-            margin-bottom: 5px;
-        }
-        .progress-bar {
-            height: 6px;
-            background: #333;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .progress-inner {
-            height: 100%;
-            background: #00d9c0;
-            border-radius: 3px;
-        }
-        .sync-value {
-            color: #00d9c0;
-            font-weight: bold;
-        }
-
-        .btn-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        .func-btn {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 6px;
-            color: #e0e0e0;
-            padding: 10px 5px;
-            font-size: clamp(10px, 1.5vw, 12px);
-            font-family: inherit;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            height: 60px;
-            justify-content: center;
-            transition: all 0.2s;
-            width: 100%;
-        }
-        .func-btn:hover, .func-btn:active {
-            background: #252525;
-            border-color: #00d9c0;
-        }
-        .func-btn.active {
-            border-color: #00d9c0;
-            color: #00d9c0;
-        }
-        .func-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .save-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        .save-btn {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 6px;
-            color: #e0e0e0;
-            padding: 8px;
-            font-size: clamp(10px, 1.5vw, 12px);
-            font-family: inherit;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-            width: 100%;
-        }
-        .save-btn:hover, .save-btn:active {
-            border-color: #00d9c0;
-        }
-        .save-btn.active {
-            border-color: #00d9c0;
-            color: #00d9c0;
-        }
-
-        .content-bottom {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .story-box {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            min-height: 200px;
-            font-size: clamp(14px, 2vw, 16px);
-            line-height: 1.8;
-            white-space: pre-line;
-            width: 100%;
-            font-family: "方正仿宋简体", "FZFS", "Georgia", serif;
-        }
-
-        .options-title {
-            font-size: clamp(12px, 1.8vw, 14px);
-            color: #888;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .option-item {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-            font-family: "方正小标宋简体", "FZXBS", "Times New Roman", serif;
-        }
-        .option-item:hover, .option-item:active {
-            background: #252525;
-            border-color: #555;
-        }
-        .option-number {
-            color: #888;
-            margin-right: 10px;
-            flex-shrink: 0;
-            font-size: clamp(12px, 1.5vw, 14px);
-        }
-        .option-text {
-            flex: 1;
-            font-size: clamp(14px, 1.8vw, 16px);
-            word-wrap: break-word;
-        }
-        .option-sync {
-            background: #222;
-            border: 1px solid #333;
-            border-radius: 4px;
-            padding: 3px 8px;
-            font-size: clamp(10px, 1.5vw, 12px);
-            color: #00d9c0;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        .option-sync.mental-cost {
-            color: #ff6b6b;
-        }
-        .option-arrow {
-            color: #00d9c0;
-            flex-shrink: 0;
-            font-size: clamp(12px, 1.5vw, 14px);
-        }
-
-        .start-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 80vh;
-            gap: 20px;
-            padding: 10px;
-            width: 100%;
-        }
-        .view-card {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            width: clamp(280px, 80%, 400px);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .view-card:hover, .view-card:active {
-            border-color: #00d9c0;
-            background: #252525;
-        }
-        .view-card h2 {
-            font-size: clamp(16px, 2vw, 18px);
-            margin-bottom: 10px;
-        }
-        .view-status {
-            font-size: clamp(10px, 1.5vw, 12px);
-            color: #888;
-        }
-        .view-status.completed {
-            color: #00d9c0;
-        }
-
-        .game-page {
-            display: none;
-            width: 100%;
-        }
-
-        #game-tip {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #1e1e1e;
-            border: 1px solid #00d9c0;
-            border-radius: 6px;
-            padding: 10px 15px;
-            font-size: clamp(10px, 1.5vw, 12px);
-            color: #00d9c0;
-            display: none;
-            z-index: 1000;
-            max-width: 80%;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.95);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        .overlay-content {
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            max-width: clamp(280px, 80%, 500px);
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .ending-box {
-            background: #1e1e1e;
-            border: 1px solid #00d9c0;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 15px 0;
-            text-align: center;
-            color: #00d9c0;
-            font-size: 14px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #121212; color: #e0e0e0; font-family: "Consolas", "Courier New", monospace; font-size: 14px; line-height: 1.6; min-height: 100vh; padding: 10px; max-width: 100vw; overflow-x: hidden; }
+        .container { max-width: 1400px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 15px; }
+        .header { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #333; }
+        .header-title { font-size: clamp(16px, 3vw, 22px); color: #00d9c0; font-weight: bold; }
+        .header-sub { font-size: clamp(10px, 1.5vw, 12px); color: #888; }
+        .main-wrap { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        .top-function-area { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        @media (min-width: 768px) { .top-function-area { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; } .full-width { grid-column: span 2; } }
+        .card { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 15px; width: 100%; }
+        .card-title { font-size: clamp(12px, 1.8vw, 14px); color: #888; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+        .progress-item { margin-bottom: 12px; }
+        .progress-label { display: flex; justify-content: space-between; font-size: clamp(10px, 1.5vw, 12px); margin-bottom: 5px; }
+        .progress-bar { height: 6px; background: #333; border-radius: 3px; overflow: hidden; }
+        .progress-inner { height: 100%; background: #00d9c0; border-radius: 3px; }
+        .sync-value { color: #00d9c0; font-weight: bold; }
+        .btn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+        .func-btn { background: #1e1e1e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; padding: 10px 5px; font-size: clamp(10px, 1.5vw, 12px); font-family: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; height: 60px; justify-content: center; transition: all 0.2s; width: 100%; }
+        .func-btn:hover, .func-btn:active { background: #252525; border-color: #00d9c0; }
+        .func-btn.active { border-color: #00d9c0; color: #00d9c0; }
+        .func-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        .save-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 10px; }
+        .save-btn { background: #1e1e1e; border: 1px solid #333; border-radius: 6px; color: #e0e0e0; padding: 8px; font-size: clamp(10px, 1.5vw, 12px); font-family: inherit; cursor: pointer; text-align: center; transition: all 0.2s; width: 100%; }
+        .save-btn:hover, .save-btn:active { border-color: #00d9c0; }
+        .save-btn.active { border-color: #00d9c0; color: #00d9c0; }
+        .content-bottom { display: flex; flex-direction: column; gap: 15px; width: 100%; margin-top: 15px; }
+        .story-box { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 20px; min-height: 200px; font-size: clamp(14px, 2vw, 16px); line-height: 1.8; white-space: pre-line; width: 100%; font-family: "方正仿宋简体", "FZFS", "Georgia", serif; }
+        .options-title { font-size: clamp(12px, 1.8vw, 14px); color: #888; margin-bottom: 10px; width: 100%; }
+        .option-item { background: #1e1e1e; border: 1px solid #333; border-radius: 6px; padding: 15px; margin-bottom: 8px; display: flex; align-items: center; cursor: pointer; transition: all 0.2s; width: 100%; font-family: "方正小标宋简体", "FZXBS", "Times New Roman", serif; }
+        .option-item:hover, .option-item:active { background: #252525; border-color: #555; }
+        .option-number { color: #888; margin-right: 10px; flex-shrink: 0; font-size: clamp(12px, 1.5vw, 14px); width: 20px; text-align: center; }
+        .option-text { flex: 1; font-size: clamp(14px, 1.8vw, 16px); word-wrap: break-word; }
+        .option-sync { background: #222; border: 1px solid #333; border-radius: 4px; padding: 3px 8px; font-size: clamp(10px, 1.5vw, 12px); color: #00d9c0; margin-right: 10px; flex-shrink: 0; }
+        .option-sync.mental-cost { color: #ff6b6b; }
+        .option-arrow { color: #00d9c0; flex-shrink: 0; font-size: clamp(12px, 1.5vw, 14px); }
+        .start-page { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 20px; padding: 10px; width: 100%; }
+        .view-card { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 20px; width: clamp(280px, 80%, 400px); text-align: center; cursor: pointer; transition: all 0.2s; }
+        .view-card:hover, .view-card:active { border-color: #00d9c0; background: #252525; }
+        .view-card h2 { font-size: clamp(16px, 2vw, 18px); margin-bottom: 10px; }
+        .view-status { font-size: clamp(10px, 1.5vw, 12px); color: #888; }
+        .view-status.completed { color: #00d9c0; }
+        .game-page { display: none; width: 100%; }
+        #game-tip { position: fixed; top: 20px; right: 20px; background: #1e1e1e; border: 1px solid #00d9c0; border-radius: 6px; padding: 10px 15px; font-size: clamp(10px, 1.5vw, 12px); color: #00d9c0; display: none; z-index: 1000; max-width: 80%; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px; overflow-y: auto; }
+        .overlay-content { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 20px; max-width: clamp(280px, 80%, 500px); width: 100%; max-height: 90vh; overflow-y: auto; }
+        .ending-box { background: #1e1e1e; border: 1px solid #00d9c0; border-radius: 8px; padding: 20px; margin: 15px 0; text-align: center; color: #00d9c0; font-size: 14px; }
+        .danger-btn { background: #3a1e1e; border-color: #b34a4a; color: #ffb3b3; }
+        .danger-btn:hover, .danger-btn:active { background: #4f2a2a; border-color: #ff6b6b; }
+        .option-item.disabled { opacity: 0.4; pointer-events: none; }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="game-tip"></div>
-
         <div class="header">
-            <div class="header-title">精神图景 · 锚点</div>
+            <div class="header-title">精神图景 · 双界 · 锚点（完整版）</div>
             <div class="header-sub">SENTINEL-GUIDE SYNCHRONIZATION PROTOCOL V2.4</div>
         </div>
 
@@ -375,111 +79,36 @@
         <!-- 游戏主页面 -->
         <div id="game-page" class="game-page">
             <div class="main-wrap">
-                <!-- 顶部功能区域 -->
                 <div class="top-function-area">
                     <div class="card">
                         <div class="card-title">生理指标监控</div>
-                        <div class="progress-item">
-                            <div class="progress-label">
-                                <span>同步率</span>
-                                <span class="sync-value" id="sync-value">50%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-inner" id="sync-progress" style="width: 50%"></div>
-                            </div>
-                        </div>
-                        <div class="progress-item">
-                            <div class="progress-label">
-                                <span>探索度</span>
-                                <span id="explore-value">0%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-inner" id="explore-progress" style="width: 0%"></div>
-                            </div>
-                        </div>
+                        <div class="progress-item"><div class="progress-label"><span>同步率</span><span class="sync-value" id="sync-value">10%</span></div><div class="progress-bar"><div class="progress-inner" id="sync-progress" style="width:10%"></div></div></div>
+                        <div class="progress-item"><div class="progress-label"><span>探索度</span><span id="explore-value">0%</span></div><div class="progress-bar"><div class="progress-inner" id="explore-progress" style="width:0%"></div></div></div>
                     </div>
-
                     <div class="card">
                         <div class="card-title">物证与卷宗收集</div>
-                        <div class="progress-item">
-                            <div class="progress-label">
-                                <span>记忆碎片</span>
-                                <span id="frag-text">0 / 15</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-inner" id="frag-progress" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="progress-item">
-                            <div class="progress-label">
-                                <span>特殊物品</span>
-                                <span id="item-text">0 / 6</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-inner" id="item-progress" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="progress-item">
-                            <div class="progress-label">
-                                <span>结局收集</span>
-                                <span id="end-text">0 / 10</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-inner" id="end-progress" style="width: 0%"></div>
-                            </div>
-                        </div>
+                        <div class="progress-item"><div class="progress-label"><span>记忆碎片</span><span id="frag-text">0 / 10</span></div><div class="progress-bar"><div class="progress-inner" id="frag-progress" style="width:0%"></div></div></div>
+                        <div class="progress-item"><div class="progress-label"><span>特殊物品</span><span id="item-text">0 / 5</span></div><div class="progress-bar"><div class="progress-inner" id="item-progress" style="width:0%"></div></div></div>
+                        <div class="progress-item"><div class="progress-label"><span>结局收集</span><span id="end-text">0 / 12</span></div><div class="progress-bar"><div class="progress-inner" id="end-progress" style="width:0%"></div></div></div>
                     </div>
-
                     <div class="card full-width">
                         <div class="card-title">功能操作</div>
                         <div class="btn-grid">
-                            <button class="func-btn" onclick="UI.toggleFastForward()" id="fast-forward-btn">
-                                <svg viewBox="0 0 24 24"><path d="M13 2.05v3.02c3.95.49 7 3.85 7 7.93 0 .67-.08 1.33-.24 1.96l2.95 2.95C23.62 16.66 24 14.88 24 13c0-6.18-5-11-11-11-1.84 0-3.59.31-5.15.88l2.95 2.95C11.68 4.23 12.33 4.13 13 2.05zm-2.5.69L2.05 3.05l1.41 1.41C2.19 5.16 1 7.96 1 13c0 6.18 5 11 11 11 5.04 0 7.84-1.19 8.55-2.48l1.41 1.41L21.95 21l-9.44-9.44-2.01 2.01c.56 1.18.44 2.58-.31 3.54-.89.99-2.4.99-3.29 0-.99-.89-.99-2.4 0-3.29.77-.77 1.98-.89 2.95-.31l2.01-2.01L5.11 2.74z"/></svg>
-                                快进
-                            </button>
-                            <button class="func-btn" onclick="Game.replayNode()">
-                                <svg viewBox="0 0 24 24"><path d="M13.5 3C8.04 3 3.27 6.96 1.64 12H0l2.5 2.5L5 12H3.36C5.08 7.03 9.43 3.5 14.5 3.5c4.34 0 8.04 2.84 9.27 6.68C24.61 9.5 25 11.16 25 13c0 3.31-2.69 6-6 6-1.79 0-3.4-.88-4.43-2.24L9.87 18c1.52 2.03 3.96 3.34 6.63 3.34 4.42 0 8-3.58 8-8 0-4.42-3.58-8-8-8-1.5 0-2.9.41-4.13 1.11L13.5 3z"/></svg>
-                                重播
-                            </button>
-                            <button class="func-btn" onclick="UI.toggleBgm()" id="music-btn">
-                                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                                音乐
-                            </button>
-                            <button class="func-btn" onclick="UI.showTimeLine()">
-                                <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
-                                回溯
-                            </button>
+                            <button class="func-btn" onclick="UI.toggleFastForward()" id="fast-forward-btn"><svg viewBox="0 0 24 24"><path d="M13 2.05v3.02c3.95.49 7 3.85 7 7.93 0 .67-.08 1.33-.24 1.96l2.95 2.95C23.62 16.66 24 14.88 24 13c0-6.18-5-11-11-11-1.84 0-3.59.31-5.15.88l2.95 2.95C11.68 4.23 12.33 4.13 13 2.05zm-2.5.69L2.05 3.05l1.41 1.41C2.19 5.16 1 7.96 1 13c0 6.18 5 11 11 11 5.04 0 7.84-1.19 8.55-2.48l1.41 1.41L21.95 21l-9.44-9.44-2.01 2.01c.56 1.18.44 2.58-.31 3.54-.89.99-2.4.99-3.29 0-.99-.89-.99-2.4 0-3.29.77-.77 1.98-.89 2.95-.31l2.01-2.01L5.11 2.74z"/></svg>快进</button>
+                            <button class="func-btn" onclick="Game.replayNode()"><svg viewBox="0 0 24 24"><path d="M13.5 3C8.04 3 3.27 6.96 1.64 12H0l2.5 2.5L5 12H3.36C5.08 7.03 9.43 3.5 14.5 3.5c4.34 0 8.04 2.84 9.27 6.68C24.61 9.5 25 11.16 25 13c0 3.31-2.69 6-6 6-1.79 0-3.4-.88-4.43-2.24L9.87 18c1.52 2.03 3.96 3.34 6.63 3.34 4.42 0 8-3.58 8-8 0-4.42-3.58-8-8-8-1.5 0-2.9.41-4.13 1.11L13.5 3z"/></svg>重播</button>
+                            <button class="func-btn" onclick="UI.toggleBgm()" id="music-btn"><svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>音乐</button>
+                            <button class="func-btn" onclick="UI.showTimeLine()"><svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>回溯</button>
                         </div>
-
-                        <div class="card-title" style="margin-top: 15px;">存档管理</div>
-                        <div class="save-grid">
-                            <button class="save-btn" id="save-btn-0" onclick="Save.saveGame(0)">存档1</button>
-                            <button class="save-btn" id="save-btn-1" onclick="Save.saveGame(1)">存档2</button>
-                            <button class="save-btn" id="save-btn-2" onclick="Save.saveGame(2)">存档3</button>
-                            <button class="save-btn" id="save-btn-3" onclick="Save.saveGame(3)">存档4</button>
-                            <button class="save-btn" id="save-btn-4" onclick="Save.saveGame(4)">存档5</button>
+                        <div class="card-title" style="margin-top:15px;">存档管理</div>
+                        <div class="save-grid" id="save-grid"></div>
+                        <div style="display:flex; gap:8px; margin-top:10px;">
+                            <button class="func-btn" onclick="Game.backToStart()" style="flex:1;"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>返回首页</button>
+                            <button class="func-btn danger-btn" onclick="UI.clearAllData()" style="flex:1;"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>清除数据</button>
                         </div>
-                        <div class="save-grid">
-                            <button class="save-btn" id="load-btn-0" onclick="Save.loadGame(0)">读档1</button>
-                            <button class="save-btn" id="load-btn-1" onclick="Save.loadGame(1)">读档2</button>
-                            <button class="save-btn" id="load-btn-2" onclick="Save.loadGame(2)">读档3</button>
-                            <button class="save-btn" id="load-btn-3" onclick="Save.loadGame(3)">读档4</button>
-                            <button class="save-btn" id="load-btn-4" onclick="Save.loadGame(4)">读档5</button>
-                        </div>
-
-                        <button class="func-btn" onclick="Game.backToStart()" style="width: 100%; margin-top: 10px;">
-                            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                            返回首页
-                        </button>
                     </div>
                 </div>
-
-                <!-- 底部文字和选项 -->
                 <div class="content-bottom">
-                    <div class="story-box" id="narrate-text">
-                        【请选择视角开始探索】
-                    </div>
-
+                    <div class="story-box" id="narrate-text">【请选择视角开始探索】</div>
                     <div class="options-title">> 请选择行动方案</div>
                     <div id="options-area"></div>
                 </div>
@@ -487,31 +116,887 @@
         </div>
 
         <!-- 时间线弹窗 -->
-        <div class="overlay" id="time-line-page">
-            <div class="overlay-content">
-                <div class="card-title" style="color:#00d9c0; text-align:center; font-size:16px;">已访问节点（点击回溯）</div>
-                <button class="save-btn" onclick="UI.hideTimeLine()" style="width:100%; margin-bottom:15px;">关闭</button>
-                <div id="time-line-content"></div>
-            </div>
-        </div>
-
-        <!-- 结局弹窗 - 移除图片，改为纯文字 -->
-        <div class="overlay" id="ending-page">
-            <div class="overlay-content">
-                <div class="card-title" id="ending-name" style="color:#00d9c0; text-align:center; font-size:16px;">结局</div>
-                <div class="ending-box" id="ending-desc"></div>
-                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
-                    <button class="save-btn" onclick="UI.hideEnding()">关闭</button>
-                    <button class="save-btn" onclick="Game.replayEndingLine()">重玩此线</button>
-                    <button class="save-btn" onclick="Game.backToStart()">返回首页</button>
-                </div>
-            </div>
-        </div>
+        <div class="overlay" id="time-line-page"><div class="overlay-content"><div class="card-title" style="color:#00d9c0; text-align:center; font-size:16px;">已访问节点（点击回溯）</div><button class="save-btn" onclick="UI.hideTimeLine()" style="width:100%; margin-bottom:15px;">关闭</button><div id="time-line-content"></div></div></div>
+        <!-- 结局弹窗 -->
+        <div class="overlay" id="ending-page"><div class="overlay-content"><div class="card-title" id="ending-name" style="color:#00d9c0; text-align:center; font-size:16px;">结局</div><div class="ending-box" id="ending-desc"></div><div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;"><button class="save-btn" onclick="UI.hideEnding()">关闭</button><button class="save-btn" onclick="Game.replayEndingLine()">重玩此线</button><button class="save-btn" onclick="Game.backToStart()">返回首页</button></div></div></div>
     </div>
 
-    <script src="js/data.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/save.js"></script>
-    <script src="js/ui.js"></script>
+    <script>
+        // ==================== 全局数据容器（第一部分）====================
+        const GAME_DATA = { chengye: {}, jiangyanbai: {} };
+        const ENDINGS = { chengye: {}, jiangyanbai: {}, hidden: {} };
+
+        // ==================== 游戏核心逻辑 ====================
+        const Game = {
+            state: {
+                currentView: null,
+                currentNode: null,
+                sync: 10,
+                explore: 0,
+                visitedNodes: [],
+                collectedFragments: [],
+                collectedItems: [],
+                unlockedEndings: [],
+                isFastForward: false,
+                bgmEnabled: false,
+                lastSaveTime: null
+            },
+            persistState: function() {
+                try {
+                    const persistentState = {
+                        currentView: this.state.currentView,
+                        currentNode: this.state.currentNode,
+                        sync: this.state.sync,
+                        explore: this.state.explore,
+                        visitedNodes: this.state.visitedNodes,
+                        collectedFragments: this.state.collectedFragments,
+                        collectedItems: this.state.collectedItems,
+                        unlockedEndings: this.state.unlockedEndings,
+                        lastSaveTime: new Date().toLocaleString()
+                    };
+                    localStorage.setItem('game_auto_save', JSON.stringify(persistentState));
+                } catch (e) { console.warn('自动保存失败', e); }
+            },
+            loadPersistedState: function() {
+                try {
+                    const saved = localStorage.getItem('game_auto_save');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        this.state.currentView = parsed.currentView || null;
+                        this.state.currentNode = parsed.currentNode || null;
+                        this.state.sync = parsed.sync || 10;
+                        this.state.explore = parsed.explore || 0;
+                        this.state.visitedNodes = parsed.visitedNodes || [];
+                        this.state.collectedFragments = parsed.collectedFragments || [];
+                        this.state.collectedItems = parsed.collectedItems || [];
+                        this.state.unlockedEndings = parsed.unlockedEndings || [];
+                    }
+                } catch (e) { console.warn('加载自动存档失败', e); }
+            },
+            init: function() {
+                this.loadPersistedState();
+                const savedEndings = localStorage.getItem('unlocked_endings');
+                if (savedEndings) {
+                    try { const endings = JSON.parse(savedEndings); if (this.state.unlockedEndings.length === 0) this.state.unlockedEndings = endings; } catch(e) {}
+                }
+                UI.updateProgress();
+                UI.updateViewStatus();
+                Save.updateAllButtons();
+            },
+            startView: function(view) {
+                this.state.currentView = view;
+                this.state.currentNode = view === 'chengye' ? 'chengye_area1_start' : 'jiangyanbai_area1_start';
+                this.state.sync = 10;
+                this.state.explore = 0;
+                this.state.visitedNodes = [];
+                this.persistState();
+                document.getElementById('start-page').style.display = 'none';
+                document.getElementById('game-page').style.display = 'block';
+                UI.renderScene(this.state.currentNode);
+                UI.showTip(`已进入${view === 'chengye' ? '程野·临海之森' : '江砚白·钢铁森林'}`);
+            },
+            selectOption: function(nodeId, optionIndex) {
+                const scene = GAME_DATA[this.state.currentView][nodeId];
+                if (!scene || !scene.options || !scene.options[optionIndex]) return;
+                const option = scene.options[optionIndex];
+
+                if (option.popup) {
+                    document.querySelectorAll('.option-item').forEach(el => el.classList.add('disabled'));
+                    const narrateEl = document.getElementById('narrate-text');
+                    UI.typeText(narrateEl, option.popup, 30, () => {
+                        setTimeout(() => {
+                            this.applyOptionEffects(option);
+                            if (option.customEnding) {
+                                this.triggerEnding(option.customEnding);
+                            } else if (option.nextNode) {
+                                if (option.nextNode.includes('ending')) {
+                                    this.triggerEnding(option.nextNode);
+                                } else {
+                                    this.state.currentNode = option.nextNode;
+                                    UI.renderScene(this.state.currentNode);
+                                }
+                            }
+                            document.querySelectorAll('.option-item').forEach(el => el.classList.remove('disabled'));
+                            UI.updateProgress();
+                            this.persistState();
+                        }, 2500);
+                    });
+                } else {
+                    this.applyOptionEffects(option);
+                    if (option.customEnding) {
+                        this.triggerEnding(option.customEnding);
+                    } else if (option.nextNode) {
+                        if (option.nextNode.includes('ending')) {
+                            this.triggerEnding(option.nextNode);
+                        } else {
+                            this.state.currentNode = option.nextNode;
+                            UI.renderScene(this.state.currentNode);
+                        }
+                    }
+                    UI.updateProgress();
+                    this.persistState();
+                }
+            },
+            applyOptionEffects: function(option) {
+                if (option.syncChange) {
+                    this.state.sync = Math.min(100, Math.max(0, this.state.sync + option.syncChange));
+                }
+                if (option.exploreChange) {
+                    this.state.explore = Math.min(100, this.state.explore + option.exploreChange);
+                }
+                if (option.fragment && !this.state.collectedFragments.includes(option.fragment)) {
+                    this.state.collectedFragments.push(option.fragment);
+                    UI.showTip(`获得记忆碎片：${option.fragment}`);
+                }
+                if (option.item && !this.state.collectedItems.includes(option.item)) {
+                    this.state.collectedItems.push(option.item);
+                    UI.showTip(`获得特殊物品：${option.item}`);
+                }
+                if (option.hiddenPerception) {
+                    UI.showTip(`隐藏认知：${option.hiddenPerception}`);
+                }
+            },
+            recordVisitedNode: function(nodeId) { /* 暂未实现，但无影响 */ },
+            backToNode: function(nodeId) { /* 略，与原框架同，可后续补充 */ },
+            replayNode: function() {
+                if (!this.state.currentNode) return;
+                const scene = GAME_DATA[this.state.currentView][this.state.currentNode];
+                if (!scene) return;
+                UI.typeText(document.getElementById('narrate-text'), scene.text, 30);
+                UI.showTip('重播当前节点');
+            },
+            triggerEnding: function(endingId) {
+                let finalEndingId = endingId;
+                if (endingId === 'chengye_ending_trigger') {
+                    if (this.state.sync < 60) finalEndingId = 'ending_chengye_01';
+                    else if (this.state.sync < 70) finalEndingId = 'ending_chengye_02';
+                    else if (this.state.sync < 80) finalEndingId = 'ending_chengye_03';
+                    else if (this.state.sync < 90) finalEndingId = 'ending_chengye_04';
+                    else finalEndingId = 'ending_chengye_05';
+                } else if (endingId === 'jiangyanbai_ending_trigger') {
+                    if (this.state.sync < 60) finalEndingId = 'ending_jiang_01';
+                    else if (this.state.sync < 70) finalEndingId = 'ending_jiang_02';
+                    else if (this.state.sync < 80) finalEndingId = 'ending_jiang_03';
+                    else if (this.state.sync < 90) finalEndingId = 'ending_jiang_04';
+                    else finalEndingId = 'ending_jiang_05';
+                }
+                if (!this.state.unlockedEndings.includes(finalEndingId)) {
+                    this.state.unlockedEndings.push(finalEndingId);
+                    localStorage.setItem('unlocked_endings', JSON.stringify(this.state.unlockedEndings));
+                    if (this.state.currentView === 'chengye') localStorage.setItem('chengye_explored', 'true');
+                    else if (this.state.currentView === 'jiangyanbai') localStorage.setItem('jiangyanbai_explored', 'true');
+                    this.checkHiddenEnding();
+                    this.persistState();
+                }
+                UI.showEnding(finalEndingId);
+            },
+            checkHiddenEnding: function() {
+                const chengyeExplored = localStorage.getItem('chengye_explored') === 'true';
+                const jiangyanbaiExplored = localStorage.getItem('jiangyanbai_explored') === 'true';
+                const allFragments = this.state.collectedFragments.length >= 10;
+                const allItems = this.state.collectedItems.length >= 5;
+                if (chengyeExplored && jiangyanbaiExplored && allFragments && allItems) {
+                    if (!this.state.unlockedEndings.includes('ending_hidden')) {
+                        this.state.unlockedEndings.push('ending_hidden');
+                        localStorage.setItem('unlocked_endings', JSON.stringify(this.state.unlockedEndings));
+                        UI.showTip('✨ 解锁隐藏结局：风知道，海知道，树也知道');
+                        this.persistState();
+                    }
+                }
+            },
+            replayEndingLine: function() {
+                this.state.currentNode = this.state.currentView === 'chengye' ? 'chengye_area1_start' : 'jiangyanbai_area1_start';
+                this.state.sync = 10;
+                this.state.explore = 0;
+                UI.hideEnding();
+                UI.renderScene(this.state.currentNode);
+                UI.updateProgress();
+                this.persistState();
+                UI.showTip('重新开始当前视角');
+            },
+            backToStart: function() {
+                UI.hideEnding();
+                UI.updateViewStatus();
+                document.getElementById('game-page').style.display = 'none';
+                document.getElementById('start-page').style.display = 'flex';
+                UI.showTip('返回视角选择页面');
+                this.persistState();
+            },
+            getState: function() { return this.state; },
+            setState: function(state) {
+                this.state = { ...this.state, ...state };
+                if (this.state.currentNode) UI.renderScene(this.state.currentNode);
+                UI.updateProgress();
+                this.persistState();
+                UI.showTip('读档完成');
+            },
+            resetAllData: function() {
+                if (confirm('确定要清除所有游戏进度吗？此操作不可撤销。')) {
+                    localStorage.clear();
+                    this.state = { currentView: null, currentNode: null, sync: 10, explore: 0, visitedNodes: [], collectedFragments: [], collectedItems: [], unlockedEndings: [], isFastForward: false, bgmEnabled: false, lastSaveTime: null };
+                    UI.updateProgress(); UI.updateViewStatus();
+                    document.getElementById('game-page').style.display = 'none'; document.getElementById('start-page').style.display = 'flex';
+                    UI.showTip('所有数据已清除');
+                    Save.updateAllButtons();
+                }
+            }
+        };
+
+        const Save = {
+            saveGame: function(slot) {
+                if (slot < 0 || slot > 4) return;
+                const state = Game.getState();
+                state.saveTime = new Date().toLocaleString('zh-CN');
+                localStorage.setItem(`game_save_${slot}`, JSON.stringify(state));
+                this.updateAllButtons();
+                Game.persistState();
+                UI.showTip(`已存档到槽位 ${slot + 1}`);
+            },
+            loadGame: function(slot) {
+                if (slot < 0 || slot > 4) return;
+                const saveData = localStorage.getItem(`game_save_${slot}`);
+                if (!saveData) { UI.showTip(`槽位 ${slot + 1} 无存档`); return; }
+                try {
+                    const state = JSON.parse(saveData);
+                    Game.setState(state);
+                    document.getElementById('start-page').style.display = 'none';
+                    document.getElementById('game-page').style.display = 'block';
+                    this.updateAllButtons();
+                    UI.showTip(`从槽位 ${slot + 1} 读档成功`);
+                } catch (e) { UI.showTip('读档失败，存档可能已损坏'); }
+            },
+            updateAllButtons: function() {
+                for (let i = 0; i < 5; i++) {
+                    const saveBtn = document.getElementById(`save-btn-${i}`); const loadBtn = document.getElementById(`load-btn-${i}`);
+                    const hasSave = localStorage.getItem(`game_save_${i}`);
+                    if (saveBtn) { if (hasSave) saveBtn.classList.add('active'); else saveBtn.classList.remove('active'); }
+                    if (loadBtn) { if (hasSave) loadBtn.classList.add('active'); else loadBtn.classList.remove('active'); }
+                }
+            },
+            init: function() { this.updateAllButtons(); }
+        };
+
+        const UI = {
+            typeTimer: null,
+            showTip: function(text) {
+                const tip = document.getElementById("game-tip");
+                tip.textContent = `> ${text}`;
+                tip.style.display = "block";
+                setTimeout(() => { tip.style.display = "none"; }, 2500);
+            },
+            updateProgress: function() {
+                const s = Game.state;
+                document.getElementById("sync-value").innerText = `${s.sync}%`;
+                document.getElementById("sync-progress").style.width = `${s.sync}%`;
+                document.getElementById("explore-value").innerText = `${s.explore}%`;
+                document.getElementById("explore-progress").style.width = `${s.explore}%`;
+                const fragCount = s.collectedFragments.length;
+                document.getElementById("frag-text").innerText = `${fragCount} / 10`;
+                document.getElementById("frag-progress").style.width = `${(fragCount/10)*100}%`;
+                const itemCount = s.collectedItems.length;
+                document.getElementById("item-text").innerText = `${itemCount} / 5`;
+                document.getElementById("item-progress").style.width = `${(itemCount/5)*100}%`;
+                const endCount = s.unlockedEndings.length;
+                document.getElementById("end-text").innerText = `${endCount} / 12`;
+                document.getElementById("end-progress").style.width = `${(endCount/12)*100}%`;
+            },
+            updateViewStatus: function() {
+                const chengyeExplored = localStorage.getItem('chengye_explored') === 'true';
+                const jiangyanbaiExplored = localStorage.getItem('jiangyanbai_explored') === 'true';
+                const chengyeEl = document.getElementById("chengye-status");
+                const jiangEl = document.getElementById("jiangyanbai-status");
+                if (chengyeExplored) { chengyeEl.innerText = "已探索"; chengyeEl.classList.add("completed"); } else { chengyeEl.innerText = "未探索"; chengyeEl.classList.remove("completed"); }
+                if (jiangyanbaiExplored) { jiangEl.innerText = "已探索"; jiangEl.classList.add("completed"); } else { jiangEl.innerText = "未探索"; jiangEl.classList.remove("completed"); }
+            },
+            typeText: function(element, text, speed = 30, callback) {
+                if (this.typeTimer) clearInterval(this.typeTimer);
+                element.innerText = '';
+                if (Game.state.isFastForward) {
+                    element.innerText = text;
+                    if (callback) callback();
+                    return;
+                }
+                let index = 0;
+                this.typeTimer = setInterval(() => {
+                    if (index < text.length) {
+                        element.innerText += text[index];
+                        index++;
+                    } else {
+                        clearInterval(this.typeTimer);
+                        if (callback) callback();
+                    }
+                }, speed);
+            },
+            renderScene: function(nodeId) {
+                if (!Game.state.currentView) return;
+                const scene = GAME_DATA[Game.state.currentView][nodeId];
+                if (!scene) { console.error('场景不存在', nodeId); return; }
+                if (scene.fragment && !Game.state.collectedFragments.includes(scene.fragment)) {
+                    Game.state.collectedFragments.push(scene.fragment);
+                    this.showTip(`获得记忆碎片：${scene.fragment}`);
+                    Game.persistState();
+                }
+                if (scene.item && !Game.state.collectedItems.includes(scene.item)) {
+                    Game.state.collectedItems.push(scene.item);
+                    this.showTip(`获得特殊物品：${scene.item}`);
+                    Game.persistState();
+                }
+                const narrateEl = document.getElementById("narrate-text");
+                this.typeText(narrateEl, scene.text, 30);
+                const optionsArea = document.getElementById("options-area");
+                optionsArea.innerHTML = "";
+                if (scene.options && scene.options.length > 0) {
+                    scene.options.forEach((option, index) => {
+                        const optionEl = document.createElement("div");
+                        optionEl.className = "option-item";
+                        optionEl.onclick = function() { Game.selectOption(nodeId, index); };
+                        let optionContent = `<span class="option-number">${String.fromCharCode(65 + index)}</span><span class="option-text">${option.text}</span>`;
+                        if (option.cost) {
+                            const costText = option.cost.type === "精神力" ? "精神消耗" : "体力消耗";
+                            optionContent += `<span class="option-sync mental-cost">${costText}</span>`;
+                        }
+                        optionContent += `<span class="option-arrow">></span>`;
+                        optionEl.innerHTML = optionContent;
+                        optionsArea.appendChild(optionEl);
+                    });
+                } else {
+                    optionsArea.innerHTML = `<div class="option-item" style="cursor: default; opacity: 0.6;"><span class="option-number">✓</span><span class="option-text">剧情已结束</span><span class="option-arrow">></span></div>`;
+                }
+                const titleEl = document.querySelector(".options-title");
+                if (titleEl && scene.name) titleEl.innerHTML = `> ${scene.name}`;
+                this.updateProgress();
+            },
+            toggleFastForward: function() {
+                Game.state.isFastForward = !Game.state.isFastForward;
+                const btn = document.getElementById("fast-forward-btn");
+                if (Game.state.isFastForward) {
+                    btn.classList.add('active');
+                    if (this.typeTimer) { clearInterval(this.typeTimer); const narrateEl = document.getElementById("narrate-text"); const scene = GAME_DATA[Game.state.currentView][Game.state.currentNode]; if (scene) narrateEl.innerText = scene.text; }
+                } else { btn.classList.remove('active'); }
+                this.showTip(Game.state.isFastForward ? "快进模式开启" : "快进模式关闭");
+            },
+            toggleBgm: function() {
+                Game.state.bgmEnabled = !Game.state.bgmEnabled;
+                const btn = document.getElementById("music-btn");
+                if (Game.state.bgmEnabled) {
+                    if (!window.bgmPlayer) { window.bgmPlayer = new Audio('music/bgm.mp3'); window.bgmPlayer.loop = true; }
+                    window.bgmPlayer.play().catch(() => { this.showTip("请先点击页面任意位置开启音乐"); Game.state.bgmEnabled = false; return; });
+                    btn.classList.add('active');
+                } else { if (window.bgmPlayer) window.bgmPlayer.pause(); btn.classList.remove('active'); }
+                this.showTip(Game.state.bgmEnabled ? "音乐开启" : "音乐关闭");
+            },
+            showTimeLine: function() { /* 略，可后续完善 */ },
+            hideTimeLine: function() { document.getElementById("time-line-page").style.display = "none"; },
+            showEnding: function(endId) {
+                let endingData;
+                if (ENDINGS.chengye && ENDINGS.chengye[endId]) endingData = ENDINGS.chengye[endId];
+                else if (ENDINGS.jiangyanbai && ENDINGS.jiangyanbai[endId]) endingData = ENDINGS.jiangyanbai[endId];
+                else if (ENDINGS.hidden && ENDINGS.hidden[endId]) endingData = ENDINGS.hidden[endId];
+                if (!endingData) { console.error('结局数据未找到:', endId); this.showTip(`结局数据加载失败 (${endId})`); return; }
+                document.getElementById("ending-name").innerText = `结局：${endingData.name}`;
+                const endingDesc = document.getElementById("ending-desc");
+                this.typeText(endingDesc, endingData.desc, 20);
+                document.getElementById("ending-page").style.display = "flex";
+                this.showTip(`解锁结局：${endingData.name}`);
+                this.updateProgress();
+                Game.persistState();
+            },
+            hideEnding: function() { if (this.typeTimer) clearInterval(this.typeTimer); document.getElementById("ending-page").style.display = "none"; },
+            clearAllData: function() { Game.resetAllData(); },
+            init: function() {
+                this.updateViewStatus(); this.updateProgress();
+                const saveGrid = document.getElementById('save-grid');
+                let html = '';
+                for (let i = 0; i < 5; i++) html += `<button class="save-btn" id="save-btn-${i}" onclick="Save.saveGame(${i})">存档${i+1}</button>`;
+                for (let i = 0; i < 5; i++) html += `<button class="save-btn" id="load-btn-${i}" onclick="Save.loadGame(${i})">读档${i+1}</button>`;
+                saveGrid.innerHTML = html;
+            }
+        };
+// ==================== 程野视角节点（第一部分）====================
+GAME_DATA.chengye.chengye_area1_start = {
+    id: 'chengye_area1_start', name: '山脚阔叶林 · 初入',
+    text: '你站在温带阔叶林边缘。阳光透过树叶洒下斑驳光影，小径蜿蜒向上，路边开着不知名的野花。\n\n但有些不对劲——几棵树歪斜着，像是被什么撞过；地上散落着不该出现的枯叶；远处的鸟鸣声忽远忽近，音调扭曲。\n\n这是江砚白精神图景的最外层，平时最温和的区域。现在正在崩塌的边缘。\n\n狼王在你脚边嗅了嗅地面，然后抬起头，朝某个方向低吼。',
+    options: [{ text: '走近歪斜的树查看', nextNode: 'chengye_area1_point1' }]
+};
+GAME_DATA.chengye.chengye_area1_point1 = {
+    id: 'chengye_area1_point1', name: '山脚阔叶林 · 歪斜的树',
+    text: '你走近那几棵歪斜的树。树干上有抓痕——很深，像是某种野兽留下的。',
+    options: [
+        { text: '用指尖触碰抓痕', popup: '你的指尖刚触到树干的瞬间，一丝情绪顺着抓痕流进你意识里——恐惧。剧烈的、铺天盖地的恐惧。但不是现在的恐惧。是过去的。是江砚白某次精神失控时留下的。他当时在试图抓住什么稳住自己，手指扣进树干，扣得这么深。你收回手，心口发紧。那时候，你在哪？你为什么没在他身边？', syncChange: 2, fragment: '失控的痕迹', nextNode: 'chengye_area1_point1_after' },
+        { text: '让狼王嗅闻抓痕', popup: '狼王凑近树干，鼻翼翕动，嗅了嗅那些抓痕。然后它抬起头，朝一个方向低吼一声——那是通往山腰的方向。但它没有立刻走。它回头看你，眼睛里有东西。不是在催促。是在等。像是在说：他在那边。你准备好了吗？', syncChange: 1, nextNode: 'chengye_area1_point1_after' },
+        { text: '用精神力感知抓痕上的情绪残留', popup: '你闭上眼，将自己的精神力探入那些抓痕。消耗。然后你感知到了——恐惧。孤独。还有一丝极淡的、被藏得很深的……委屈？他那时候在想什么？在想“有没有人会来找我”？在想“算了，我自己扛”？你睁开眼，胸口闷闷的。', syncChange: 2, cost: { type: '精神力', value: 3 }, hiddenPerception: '他独自扛过很多次', nextNode: 'chengye_area1_point1_after' }
+    ]
+};
+GAME_DATA.chengye.chengye_area1_point1_after = {
+    id: 'chengye_area1_point1_after', name: '山脚阔叶林 · 继续探索',
+    text: '你收回手，心口发紧。那时候，你在哪？你为什么没在他身边？',
+    options: [{ text: '继续探索', nextNode: 'chengye_area1_point2' }]
+};
+GAME_DATA.chengye.chengye_area1_point2 = {
+    id: 'chengye_area1_point2', name: '山脚阔叶林 · 落叶的异常',
+    text: '地上有一片落叶，颜色比周围的树叶深。你捡起来看——这不是阔叶林的叶子，是针叶林才有的松针。',
+    options: [
+        { text: '顺着松针散落的方向走', popup: '你弯腰，看着地上零星散落的松针，一步一步往前走。它们像路标一样，引着你穿过几棵树，绕过一块巨石——然后你发现一条隐秘的小径，掩在灌木丛后，通向山腰的方向。近路。狼王凑过来嗅了嗅小径入口，然后回头看你，尾巴轻轻摇了摇。它在夸你。', syncChange: 2, exploreChange: 5, nextNode: 'chengye_area1_point3' },
+        { text: '让狼王闻松针', popup: '你把松针递到狼王鼻前。它嗅了嗅，然后抬起头，朝山顶的方向低吼。不是山腰。是山顶。松针是从更高的地方飘下来的。从那片能看到海的草甸。他最近去过山顶。他在那里待过。', syncChange: 2, hiddenPerception: '江砚白最近去过山顶', nextNode: 'chengye_area1_point3' },
+        { text: '把松针收起来', popup: '你把这枚松针小心地收进内袋里，贴着心口的位置。狼王看着你的动作，歪了歪头。你知道它在想什么——你又开始了。收集他的东西。但你没解释。你也不知道怎么解释。就是……想留着。', syncChange: 1, item: '山腰的松针', nextNode: 'chengye_area1_point3' }
+    ]
+};
+GAME_DATA.chengye.chengye_area1_point3 = {
+    id: 'chengye_area1_point3', name: '山脚阔叶林 · 扭曲的鸟鸣',
+    text: '你听见鸟鸣声忽远忽近，音调扭曲得像坏掉的录音带。',
+    options: [
+        { text: '启用超听觉，捕捉鸟鸣的真实来源', popup: '你闭上眼，让听觉无限延伸。那些扭曲的声音一层层剥落，露出底下的真实——是鸽子的叫声。是他的信鸽。它在叫，一声一声，很急。像是在喊谁。你循着声音的方向定位——山腰，偏东，靠近悬崖的位置。睁开眼，你知道该往哪走了。', syncChange: 2, cost: { type: '精神力', value: 3 }, nextNode: 'chengye_area1_point4' },
+        { text: '尝试用精神力和这些声音建立联系', popup: '你闭上眼，让自己的精神力像丝线一样探出去，轻轻触碰那些扭曲的鸟鸣。触碰的瞬间，你感知到了——情绪。是他的情绪。恐惧。害怕失去什么。很深的、说不出口的恐惧。你的心猛地抽紧。他在害怕失去什么？失去你吗？还是……失去他自己？', syncChange: 3, cost: { type: '精神力', value: 4 }, hiddenPerception: '他害怕失去', nextNode: 'chengye_area1_point4' },
+        { text: '忽略声音，继续前进', popup: '你告诉自己，这只是图景不稳定的表现，不用在意。狼王看了你一眼，没说什么，继续往前走。但走了几步，你忽然停下来。那些声音……还在耳边。你骗不了自己。你在意的。只是你已经走远了。', syncChange: -1, nextNode: 'chengye_area1_point4' }
+    ]
+};
+GAME_DATA.chengye.chengye_area1_point4 = {
+    id: 'chengye_area1_point4', name: '山脚阔叶林 · 小径分岔',
+    text: '山路出现分岔。左边是缓坡，铺满落叶；右边是陡峭的石阶，看起来更难走。',
+    options: [
+        { text: '走缓坡', popup: '缓坡确实好走，落叶踩上去软软的，像地毯。但你走了一段就发现——这条路绕远了。它弯弯曲曲地在山脚打转，像是故意不让你往上走。狼王走在你身边，耳朵时不时往后转，像是在听什么。你知道它在听什么。它在听你有没有后悔选这条路。你摸了摸它的头，没说话。绕远就绕远吧。总能到的。', syncChange: 0, exploreChange: 0, nextNode: 'chengye_area2_start' },
+        { text: '走石阶', popup: '石阶很陡，每一级都高得离谱。你走几步就要停下来喘气——在精神图景里，体力和现实是联动的。但狼王很兴奋。它在你前面跑几步，回头看你，再跑几步，再回头看你。它在这条路上闻到了他的气味。浓的。这是江砚白常走的路。你咬着牙往上爬。', syncChange: 2, cost: { type: '体力' }, hiddenPerception: '江砚白常走这条路', nextNode: 'chengye_area2_start' },
+        { text: '停下来，先让狼王探路', popup: '你在分岔口坐下，拍了拍狼王的背：“去看看。”狼王朝石阶方向跑去，三两下就消失在视野里。你等着。过了很久——也许只有几分钟——狼王回来了。它跑到你身边，蹭了蹭你的腿，然后转身朝石阶方向走几步，回头看你。它在说：这边。他在那边。你站起来，跟上它。', syncChange: 2, nextNode: 'chengye_area2_start' }
+    ]
+};
+// 补充石碑节点
+GAME_DATA.chengye.chengye_area1_point5 = {
+    id: 'chengye_area1_point5', name: '林间空地 · 石碑',
+    text: '你穿过一片灌木，发现一块空地。中央立着一块石碑，上面刻着几行字，被青苔覆盖了一半。你蹲下来，拂去青苔。字迹是江砚白的：“有些人走了，就再也没回来。但我记得那条路。”',
+    options: [
+        { text: '尝试用精神力感知石碑下的情绪', popup: '你把手按在石碑上，精神力探入。感知到的不是悲伤，而是一种很轻的、固执的等待。他在等某个人回来，或者等某段记忆回来。但等了很久，什么都没等到。你想起他出国五年，想起他回来时看你的眼神——好像你也是他等的人之一。', syncChange: 2, cost: { type: '精神力', value: 3 }, hiddenPerception: '他一直在等待', nextNode: 'chengye_area2_start' },
+        { text: '让狼王在石碑旁留下自己的毛', popup: '狼王走到石碑旁，侧身蹭了蹭石碑，留下几缕灰白色的狼毛。这是它的方式，标记领地，也标记陪伴。蹭完后，它又蹭了蹭你的腿，像是在说：现在有人陪这块石头了。你看着，嘴角轻轻弯了一下。', syncChange: 1, nextNode: 'chengye_area2_start' },
+        { text: '试图把石碑推倒，看看下面有什么', popup: '你深吸一口气，用尽全力推石碑。它纹丝不动。但下一秒，整个图景开始剧烈晃动——地面裂开，树木倾倒，天空像玻璃一样破碎。狼王发出凄厉的吼叫，但它的声音越来越远。你坠入无尽的黑暗。醒来时，你发现自己已经退出精神图景，浑身冷汗。江砚白坐在你对面，脸色苍白，看着你的眼神里，有恐惧，也有失望。“有些记忆……不能碰。”他轻声说。你知道，短期内，你再也进不去了。', syncChange: -5, customEnding: 'ending_chengye_06' }
+    ]
+};
+GAME_DATA.chengye.chengye_area2_start = {
+    id: 'chengye_area2_start', name: '山腰针叶林 · 初入',
+    text: '石阶尽头，雾气渐浓。\n\n你站在针叶林边缘。这里的树更高更密，阳光几乎透不下来。雾气在你周围流动，像有生命的东西。\n\n远处有悬崖，有深谷。你能听见山涧的水声，但看不见水在哪里。\n\n狼王变得警惕，耳朵竖起，喉咙里发出低沉的呜咽。\n\n这里对应江砚白处理过的那些复杂案件、接触过的黑暗人性。整个区域都在不稳定地颤动——有些地方的树木已经折断，悬崖边缘在崩塌。',
+    options: [{ text: '走进雾气深处', nextNode: 'chengye_area2_point1' }]
+};
+GAME_DATA.chengye.chengye_area2_point1 = {
+    id: 'chengye_area2_point1', name: '山腰针叶林 · 雾中的身影',
+    text: '雾气深处，有一个模糊的人影。\n\n你走近几步——那个人影也在动，像是朝你走来。但等你再靠近，它又消失了。',
+    options: [
+        { text: '启用超听觉，捕捉雾中的声音', popup: '你闭上眼，让听觉穿透雾气。一开始只有风声。然后——“……别过来……”极轻，极远，像是从很深的地方传来的。是江砚白的声音。“程野……别过来……这里……”后面的话被雾气吞没了。你睁开眼，心跳加速。他在。他在某个地方。他在说话。', syncChange: 2, cost: { type: '精神力', value: 3 }, nextNode: 'chengye_area2_point2' },
+        { text: '让狼王追上去', popup: '狼王朝雾中冲去，身影很快被雾气吞没。你等着。很久——也许是几分钟，也许是几秒——它回来了。嘴里叼着什么东西。它走到你面前，把那东西放在你脚边。一片羽毛。灰白色的。信鸽的羽毛。上面沾着一点血迹。你的心猛地沉下去。', syncChange: 2, item: '染血的羽毛', nextNode: 'chengye_area2_point2' },
+        { text: '用自己的精神力感知', popup: '你闭上眼，将自己的精神力探入雾气。消耗。那些雾气在你意识里流动，带着各种情绪碎片——恐惧、疲惫、孤独、还有一丝很淡的……期待？他在期待什么？你在找他吗？你睁开眼，心口发酸。', syncChange: 2, cost: { type: '精神力', value: 4 }, hiddenPerception: '他在期待你', nextNode: 'chengye_area2_point2' }
+    ]
+};
+GAME_DATA.chengye.chengye_area2_point2 = {
+    id: 'chengye_area2_point2', name: '山腰针叶林 · 断裂的悬崖',
+    text: '你走到一处悬崖边。边缘的岩石在崩落，一块接一块地坠入看不见的深谷。\n\n悬崖对面，隐约能看见另一片山林——那是通往山顶的路。\n\n但你过不去。中间的裂缝太宽了。',
+    options: [
+        { text: '试图跳过去', popup: '你后退几步，助跑，起跳——不够。你的指尖堪堪擦过对面的岩石边缘，然后整个人往下坠。狼王的吼叫声从上方传来，越来越远。风在耳边呼啸。黑暗从下方涌上来。然后——你猛地惊醒，发现自己还站在悬崖这边。刚才那一跳，是精神图景在警告你：此路不通。', syncChange: -3, nextNode: 'chengye_area2_point2' },
+        { text: '寻找其他路', popup: '你沿着悬崖边缘走，试图找到绕过去的路。走了很久——也许是十分钟，也许是半小时——你终于发现一条隐约的小径，从悬崖侧面绕下去，再从另一侧绕上来。很远。很耗时间。但你终于能过去了。狼王走在你身边，偶尔用头蹭蹭你的腿，像是在安慰你：没关系，慢点也行。', syncChange: 1, exploreChange: 5, nextNode: 'chengye_area2_point3' },
+        { text: '让狼王试试看', popup: '你拍了拍狼王的背：“你去试试。”狼王后退几步，助跑，一跃——它跳过去了！它稳稳落在对面，然后回头看你，低吼一声。像是在说：你可以的。你看着那道裂缝，深吸一口气。它跳过去了。你也应该能。', syncChange: 2, nextNode: 'chengye_area2_point2_after' },
+        { text: '用自己的精神力尝试修补裂缝', popup: '你蹲下来，手按在悬崖边缘，将自己的精神力注入那些崩落的岩石。消耗。那些岩石颤动着，慢慢停止了崩落。裂缝边缘变得稳定了一些，虽然还是很宽，但至少不会继续扩大了。你站起来，擦了擦额头的汗。狼王走过来，蹭了蹭你的腿。它什么都没说，但你懂——它在说谢谢。', syncChange: 3, cost: { type: '精神力', value: 5 }, nextNode: 'chengye_area2_point3' }
+    ]
+};
+GAME_DATA.chengye.chengye_area2_point2_after = {
+    id: 'chengye_area2_point2_after', name: '山腰针叶林 · 狼王的鼓励',
+    text: '它跳过去了！\n\n它稳稳落在对面，然后回头看你，低吼一声。\n\n像是在说：你可以的。\n\n你看着那道裂缝，深吸一口气。\n\n它跳过去了。你也应该能。',
+    options: [{ text: '继续前进', nextNode: 'chengye_area2_point3' }]
+};
+GAME_DATA.chengye.chengye_area2_point3 = {
+    id: 'chengye_area2_point3', name: '山腰针叶林 · 山涧的回声',
+    text: '你循着水声找到一条山涧。水很清，但看不见底。水面上漂着几片奇怪的叶子——不是针叶林的叶子，是钢铁森林里才会有的、沾着城市灰尘的叶子。\n\n你蹲下来，伸手触碰水面。',
+    options: [
+        { text: '直接用手捧水', popup: '水很凉。凉得你手指发麻。但捧起来的瞬间，你愣住了——水面上倒映着的，不是你的脸。是巨树。是你的精神图景核心。那棵立在钢铁森林中央的树。它在水面上静静地立着，树冠微微晃动，像是在随风摇摆。这里没有风。水里的风，是从你那边吹来的。', syncChange: 2, hiddenPerception: '他的图景里，倒映着你的树', nextNode: 'chengye_area2_point4' },
+        { text: '让狼王喝水', popup: '狼王低头，舔了舔山涧的水。然后它抬起头，眼睛里有光——那种光你见过，是它看见喜欢的东西时才会有的光。它看着你，低鸣一声。你懂了。它感知到了。水里有属于你们的东西。有家的味道。你伸手摸了摸它的头。“……我知道。”你轻声说，“我也感觉到了。”', syncChange: 2, nextNode: 'chengye_area2_point4' },
+        { text: '用精神力探入水中', popup: '你闭上眼，让自己的精神力顺着水流探下去。消耗。水很深。很深很深。你的精神力一直往下沉，往下沉——然后触碰到了什么。是情绪。是他的情绪。很深的地方，藏着一个念头。一个他从来没说过的念头。他想去看看你的钢铁森林。真正的、从内部看的。不是隔着海面倒映的那种。他想进去。他想……走进你的图景。你睁开眼，心跳快得发疼。', syncChange: 2, cost: { type: '精神力', value: 4 }, hiddenPerception: '他想走进你的图景', nextNode: 'chengye_area2_point4' }
+    ]
+};
+// 悬崖边的石头
+GAME_DATA.chengye.chengye_area2_point6 = {
+    id: 'chengye_area2_point6', name: '山腰针叶林 · 悬崖边的石头',
+    text: '你在悬崖边缘的另一个方向，发现一块独立的巨石，上面似乎刻着什么。走近看，是一行字：“我好像忘了一个人。”字迹很旧，被风雨侵蚀得有些模糊。但你能认出是江砚白的笔迹。',
+    options: [
+        { text: '用手抚摸那行字', popup: '触到的瞬间，你感知到一种强烈的迷茫。不是痛苦，是那种“明明知道有东西，却怎么都想不起来”的空洞感。你想起他的背景——失去的童年记忆，那个他可能永远不知道的弟弟。你的心揪了一下。', syncChange: 2, nextNode: 'chengye_area2_point4' },
+        { text: '尝试用精神力唤醒这块石头的记忆', popup: '你把手按在石头上，精神力深入。消耗很大。你看到了模糊的画面：两个小男孩在孤儿院里，手拉着手，一个稍微高一点。然后画面碎了。你被一股大力弹开，跌坐在地上。狼王冲过来，护在你身前。你喘着气，知道不能再试了。那些记忆被锁得太深，强行唤醒会伤害他。', syncChange: -1, cost: { type: '精神力', value: 8 }, nextNode: 'chengye_area2_point4' },
+        { text: '让狼王在石头旁留下自己的毛', popup: '你拍拍狼王，它走到石头旁，侧身蹭了蹭，留下几缕灰白色的狼毛。你轻声说：“也许有一天，他会想起来。到时候我们再来。”狼王低鸣一声，像是在同意。', syncChange: 1, nextNode: 'chengye_area2_point4' }
+    ]
+};
+GAME_DATA.chengye.chengye_area2_point4 = {
+    id: 'chengye_area2_point4', name: '山腰针叶林 · 记忆碎片',
+    text: '雾气忽然散开一角，露出一小片空地。\n\n空地上有一个透明的、漂浮的发光碎片。\n\n记忆碎片。\n\n你走过去，伸手触碰——\n\n画面闪现：\n\n审讯室。惨白的灯光。江砚白坐在桌子这一边，对面是一个罪犯。罪犯在笑，说着什么，那些话像刀子一样锋利。\n\n江砚白的表情平静。他的手放在桌上，一动不动。\n\n但你知道——你的感知告诉你——他的手在微微发抖。\n\n那是他第一次接触人性的极端黑暗。那个罪犯说的话，后来在他脑海里回响了很久很久。\n\n他用了很久才消化掉那段记忆。他一个人。\n\n碎片消散前，你感知到他的情绪：\n\n当时的恐惧。\n后来的释然。\n还有一个念头——\n\n“幸好程野不用经历这些。”\n\n你站在空地上，很久没动。',
+    options: [
+        { text: '记住这个念头', popup: '你把这几个字刻进心里。“幸好程野不用经历这些。”他那时候在想你。在最黑暗的时候，他在想“幸好不是你”。你垂下眼，喉结动了动。他不知道的是——你宁愿经历这些的是你。你宁愿替他扛。但这话你没说出来。只是在心里，又刻深了一点。', syncChange: 2, fragment: '他在黑暗里想过你', nextNode: 'chengye_area2_point5' },
+        { text: '对着消散的碎片说话：“但我愿意经历你的所有。”', popup: '碎片正在消散，边缘开始模糊，像雾气一样一点点散开。你看着它，忽然开口：“但我愿意经历你的所有。”碎片顿了一下——也许只是你的错觉——然后彻底消散了。他没听见。他不可能听见。但你说出来了。狼王走过来，蹭了蹭你的腿。它听见了。你低头看它，扯了扯嘴角。“走吧。”你说。', syncChange: 3, nextNode: 'chengye_area2_point5' },
+        { text: '让狼王记住这个地方', popup: '你拍了拍狼王的背：“记住这里。”狼王低头嗅了嗅地面，把这里的气味、这里的情绪、这里的记忆——全部记住。然后它抬起头，看山顶的方向。它在说：继续走。他还在上面。你点头。继续走。但你知道，狼王会记住这里的。它会记住他曾经在这里，独自消化过黑暗。', syncChange: 2, nextNode: 'chengye_area2_point5' }
+    ]
+};
+GAME_DATA.chengye.chengye_area2_point5 = {
+    id: 'chengye_area2_point5', name: '山腰针叶林 · 信鸽的踪迹',
+    text: '你在地上发现几片灰白色的羽毛，还有一小摊血迹。\n\n血迹。\n\n你的心猛地抽紧。',
+    options: [
+        { text: '启用超嗅觉，追踪血迹', popup: '你蹲下来，鼻子贴近地面，让嗅觉无限延伸。血腥味。很淡，但很清晰。还有他的气味——那种冷杉和书卷气混在一起的味道。你循着这些气味往前走。穿过几棵树，绕过一块巨石，最后——一个隐蔽的山洞口出现在你面前。血迹延伸向洞里。', syncChange: 2, cost: { type: '精神力', value: 3 }, nextNode: 'chengye_hidden_cave' },
+        { text: '让狼王带路', popup: '你还没开口，狼王已经开始嗅了。它低头闻了闻血迹，然后耳朵一竖，朝一个方向冲出去。你跟在后面跑。穿过雾气，绕过崩塌的悬崖边缘，最后——狼王停在一个山洞前。它回头看你，低鸣一声。在这里。他在里面。', syncChange: 2, nextNode: 'chengye_hidden_cave' },
+        { text: '捡起羽毛，轻声呼唤', popup: '你捡起那片羽毛，握在手心。然后你闭上眼，让自己的精神力顺着羽毛上的气息，轻轻唤了一声：“砚白哥……你在哪？”消耗。你的声音顺着精神链接传出去，穿过雾气，穿过针叶林，穿过那些崩塌的裂缝——然后你听见了。远处，很轻很轻的一声：“咕——”是鸽子的声音。是他的信鸽。你睁开眼，循着声音的方向跑过去。', syncChange: 3, cost: { type: '精神力', value: 2 }, nextNode: 'chengye_hidden_cave' }
+    ]
+};
+GAME_DATA.chengye.chengye_hidden_cave = {
+    id: 'chengye_hidden_cave', name: '隐藏区域 · 山腰山洞',
+    text: '山洞不大，但很深。洞壁上有发光的苔藓，照亮了前路。\n\n你的脚步声在洞里回响，一下，一下。\n\n狼王走在你身边，安静得不像它。\n\n走到最深处——\n\n信鸽蜷缩在一块石头上，翅膀上有一道伤口，正在流血。它看见你，想飞起来，但动不了。\n\n旁边，江砚白靠坐在洞壁边，闭着眼，脸色苍白。\n\n他的精神体受伤了。他也受伤了。\n\n你的心狠狠揪了一下。',
+    options: [
+        { text: '先查看信鸽', popup: '你轻轻捧起信鸽，放在手心。它很轻。轻得你不敢用力。你闭上眼，将自己的精神力探入它小小的身体。那些伤口在你意识里清晰可见——不深，但很疼。你一点一点地帮它止血，梳理那些紊乱的精神力。它蹭了蹭你的手指。睁开眼，你看见它的伤口已经愈合了。它站在你手心，歪着头看你，然后飞起来，落在江砚白肩上。它回头看了你一眼——像是在说谢谢。', syncChange: 3, fragment: '信鸽治愈', nextNode: 'chengye_hidden_cave_dialogue' },
+        { text: '先查看江砚白', popup: '你手按在他额头上，探入精神力。消耗。他的意识深处一片混乱——那些恐惧、疲惫、孤独，全部搅在一起，像暴风雨中的海面。你一点一点地梳理，把那些狂暴的浪头按下去，把那些破碎的地方拼起来。他微微皱眉，像是感觉到了你。然后他的眉头慢慢舒展开。你收回手，看着他安静下来的脸。“……我在。”你轻声说。', syncChange: 3, cost: { type: '精神力', value: 3 }, nextNode: 'chengye_hidden_cave_dialogue' },
+        { text: '同时触碰他们两个', popup: '你左手轻轻捧起信鸽，右手按在江砚白额头上。然后你闭上眼，让自己的精神力同时流向他们两个。消耗很大。你的意识在发颤。但你没有松手。你感觉到信鸽的伤口在愈合，你感觉到他意识的混乱在平息。你感觉到——他的精神力和信鸽的精神力，同时轻轻地、轻轻地蹭了蹭你的意识。像是在说：谢谢你。你睁开眼。信鸽的伤口好了。他的眉头舒展了。你看着他们，嘴角轻轻弯了一下。“……不客气。”', syncChange: 4, cost: { type: '精神力', value: 5 }, fragment: '双向治愈', nextNode: 'chengye_hidden_cave_dialogue' }
+    ]
+};
+GAME_DATA.chengye.chengye_hidden_cave_dialogue = {
+    id: 'chengye_hidden_cave_dialogue', name: '隐藏区域 · 山洞对话',
+    text: '江砚白睁开眼，看着你。\n\n他的眼睛里有短暂的茫然，然后渐渐聚焦。\n\n“......程野。”\n\n“嗯。”\n\n“你怎么找到这里的？”',
+    options: [
+        { text: '“跟着血迹来的。”', popup: '你指了指洞口的血迹。他低头看自己的手——有几道划痕，渗着血。他不记得是什么时候伤的了。“……这样。”他说。你没再说什么。但你知道，你记住这个画面了。他受伤的样子。你不想再看见第二次。', syncChange: 2, nextNode: 'chengye_hidden_cave_after' },
+        { text: '“鸽子带我来的。”', popup: '信鸽从你肩上飞起来，落在他肩上，蹭了蹭他的脸。他看着信鸽，又看看你。眼神柔和了一点。“……它喜欢你。”他说。你不知道怎么接这话。但它确实喜欢你。它带你来找他。你低头，掩饰了一下嘴角的弧度。', syncChange: 2, nextNode: 'chengye_hidden_cave_after' },
+        { text: '“我总能找到你。”', popup: '这话脱口而出，你自己都愣了一下。他看着你，眼睛里有东西在动。你有点后悔——太直白了。但你没收回。因为你确实总能找到他。以前是，现在是，以后也是。他垂下眼，没说话。但你看见他的耳廓，有一点点红。', syncChange: 3, nextNode: 'chengye_hidden_cave_after' }
+    ]
+};
+GAME_DATA.chengye.chengye_hidden_cave_after = {
+    id: 'chengye_hidden_cave_after', name: '隐藏区域 · 山洞深处',
+    text: '沉默片刻。\n\n江砚白：“这里......是我藏起来的地方。”\n\n“藏什么？”\n\n他没有回答。\n\n但你懂了。\n\n藏那些不想让人看见的脆弱，藏那些独自消化的黑暗，藏那些不能说出口的情绪。\n\n藏那些——他不想让你担心，所以从来不说的事。',
+    options: [
+        { text: '不再追问，只是扶他起来', popup: '你没再问。只是伸手，扶住他的手臂，把他拉起来。他看了你一眼。你没什么表情，只是说：“能走吗？”他点头。你扶着他，慢慢往外走。有些时候，不问，是最好的陪伴。', syncChange: 2, nextNode: 'chengye_hidden_cave_exit' },
+        { text: '说：“以后可以不用藏。”', popup: '你看着他，一字一字说得很清楚：“以后可以不用藏。”他愣住了。你继续说：“你藏起来的东西，我也会找到。所以不用藏。”他的喉结动了动。“……你怎么知道能找到？”你不知道。但你相信能找到。你没回答，只是看着他。他移开视线。但你的话，他记住了。', syncChange: 3, nextNode: 'chengye_hidden_cave_exit' },
+        { text: '让狼王进来', popup: '你吹了声口哨。狼王从洞口走进来，慢慢走到他身边，然后卧下，把头搁在他腿上。他低头看着狼王。狼王也看着他。然后他伸手，轻轻摸了摸狼王的头。狼王蹭了蹭他的手心。你看着这一幕，心里有什么东西软了一下。', syncChange: 2, nextNode: 'chengye_hidden_cave_exit' }
+    ]
+};
+GAME_DATA.chengye.chengye_hidden_cave_exit = {
+    id: 'chengye_hidden_cave_exit', name: '离开山洞',
+    text: '你扶着他走出山洞。\n\n外面的雾气淡了一些。信鸽飞在前面，偶尔回头看看你们。\n\n狼王走在他另一边，时不时用头蹭蹭他的腿。\n\n你感觉到他的身体不再那么紧绷了。\n\n“......程野。”\n\n“嗯？”\n\n他顿了顿，然后说：“谢谢。”\n\n你转头看他。\n\n他没看你，看着前方的路。\n\n但你知道，他是认真的。\n\n你没说话，只是扶着他的手臂，又紧了一点。',
+    options: [{ text: '继续向山顶前进', nextNode: 'chengye_area3_start' }],
+    fragment: '藏起来的地方',
+    exploreChange: 8
+};
+// ==================== 程野视角节点（第三部分）====================
+GAME_DATA.chengye.chengye_area3_start = {
+    id: 'chengye_area3_start', name: '山顶草甸 · 初入',
+    text: '穿过山洞后方的隐秘小径，你终于抵达山顶。\n\n雾气散去，眼前豁然开朗——\n\n一片开阔的草甸，风吹过时草浪起伏。远处，是那片海。蔚蓝、辽阔、没有边际。海面上有光在跳动，像是阳光，但天空是灰白色的，这光是来自哪里？\n\n江砚白站在草甸边缘，背对着你，看着海。\n\n他的背影看起来很安静，但你知道——他的精神图景还没有完全稳定。草甸的某些地方，草在无故倒伏；远处海面上，偶尔有奇怪的波纹。',
+    options: [{ text: '走向他', nextNode: 'chengye_area3_point1' }]
+};
+GAME_DATA.chengye.chengye_area3_point1 = {
+    id: 'chengye_area3_point1', name: '山顶草甸 · 草甸上的痕迹',
+    text: '你走近他，但没有立刻出声。\n\n草甸上有一条被人踩过的路，从你站的地方一直延伸到江砚白站的地方。那是他平时走的路。\n\n路的两旁，有些地方的草格外茂盛，有些地方的草稀疏。',
+    options: [
+        { text: '看茂盛的草', popup: '你伸手触碰那些格外茂盛的草。指尖触及的瞬间，一丝暖意流进你意识里——是温暖的情绪。是欢喜。是……期待？你感知到了。这些地方的草，是他想起“某些人”时会走过的地方。他在这里走过很多次。每次想起你的时候，他在这里走。你收回手，心跳快了一点。', syncChange: 2, hiddenPerception: '他在这里想过你', nextNode: 'chengye_area3_point2' },
+        { text: '看稀疏的草', popup: '你触碰那些稀疏的草。凉意。低落的情绪。疲惫。孤独。这是他独自消化黑暗时会停留的地方。他在这里站过很久，一个人，面对那些不想让人看见的东西。你的心口发酸。', syncChange: -1, nextNode: 'chengye_area3_point2' },
+        { text: '让狼王沿着路走', popup: '狼王朝他的方向走去。它走得很慢，一步一步，沿着那条被踩出来的路。走到他身边时，它停下来，卧在他脚边。他低头看了看狼王，没有动。但你知道——他在看。他在看你的狼王。你的精神体。你的一部分。', syncChange: 1, nextNode: 'chengye_area3_point2' }
+    ]
+};
+GAME_DATA.chengye.chengye_area3_point2 = {
+    id: 'chengye_area3_point2', name: '山顶草甸 · 海面上的倒影',
+    text: '你走近江砚白，站在他身边，一起看着海。\n\n海面上，除了天空的倒影，还有别的——\n\n一座城市。钢铁森林。霓虹灯牌闪烁，高架桥交错。\n\n那是你的精神图景。',
+    options: [
+        { text: '指着海面：“那是......”', popup: '你指着海面，声音有点干。他轻轻“嗯”了一声。“你能看见？”他又“嗯”了一声。你沉默了。原来他一直能看见。原来你的图景，一直在他的海里。', syncChange: 1, nextNode: 'chengye_area3_point3' },
+        { text: '沉默地看着，心跳加快', popup: '你没说话。只是看着海面上那座城市，看着那些熟悉的建筑、那些闪烁的灯火。那是你的图景。你的世界。它在别人的海里。在江砚白的海里。你的心跳快得发疼。', syncChange: 2, nextNode: 'chengye_area3_point3' },
+        { text: '问：“你什么时候开始能看见的？”', popup: '他沉默了一会儿。然后说：“从你成为我的哨兵那天。”你愣住了。从那天开始？从第一天开始？他看着你的图景，看了这么久？你的喉结动了动，说不出话。', syncChange: 2, hiddenPerception: '他从第一天就开始看着你', nextNode: 'chengye_area3_point3' }
+    ]
+};
+GAME_DATA.chengye.chengye_area3_point3 = {
+    id: 'chengye_area3_point3', name: '山顶草甸 · 信鸽的归来',
+    text: '信鸽从远处飞来，落在江砚白肩头。它的伤已经好了，羽毛也恢复了光泽。\n\n它歪着头看你，然后飞起来，落在你肩上。\n\n江砚白侧头看着这一幕。',
+    options: [
+        { text: '伸手摸了摸信鸽', popup: '你抬起手，轻轻摸了摸信鸽的羽毛。它蹭了蹭你的手指，发出满足的“咕咕”声。江砚白的嘴角微微动了一下——很轻，几乎看不出来。但你看见了。你也微微弯了弯嘴角。', syncChange: 2, nextNode: 'chengye_area3_point4' },
+        { text: '说：“它好像喜欢我。”', popup: '江砚白：“它一直喜欢你。”说完，他顿了一下。像是意识到说了什么不该说的。你看着他，心跳漏了一拍。他一直喜欢。信鸽一直喜欢你。那他呢？你没问出口。但你记住了这句话。', syncChange: 2, nextNode: 'chengye_area3_point4' },
+        { text: '让狼王站起来', popup: '你吹了声口哨。狼王站起来，走到你身边，抬头看肩上的鸽子。信鸽飞下来，落在狼王头上。两个精神体就这样待着，一个灰白色的狼，一个灰白色的鸽子。你看着它们，又看看他。他也看着它们，然后看向你。你们的目光在空中相遇。没说话。但好像什么都说了。', syncChange: 2, nextNode: 'chengye_area3_point4' }
+    ]
+};
+GAME_DATA.chengye.chengye_area3_point4 = {
+    id: 'chengye_area3_point4', name: '山顶草甸 · 风的方向',
+    text: '山顶的风一直吹着，从海面吹向陆地。\n\n但你忽然发现，有一瞬间，风向变了——从你身后吹向海面。\n\n那一缕风里，带着钢铁森林的气息：金属、混凝土、城市的烟火气。\n\n那是从你的精神图景吹来的风。',
+    options: [
+        { text: '闭上眼，感受这缕风', popup: '你闭上眼，让那缕风拂过脸颊。它带着你的气息，你的图景，你的世界。从你那边吹来，吹向他这边。你感知到了。在你的图景和他的图景之间，有一条看不见的通道。风从那里来，也从那里去。你们之间，一直有风。', syncChange: 2, nextNode: 'chengye_area3_core' },
+        { text: '问江砚白：“你也能感受到吗？”', popup: '他点头：“一直都能。”一直都能。从成为你的向导那天起，他就能感觉到你的风。你看着他，忽然不知道该说什么。他一直能感觉到你。你一直能感觉到他。那你们在等什么？你不知道答案。但你开始想这个问题了。', syncChange: 2, nextNode: 'chengye_area3_core' },
+        { text: '轻声说：“原来我们之间，一直有风。”', popup: '你这话说得很轻，像是说给自己听的。但他的肩膀轻轻动了一下。他听见了。他没回头。没说话。但他的肩膀，一直没再动。像是在等你说下一句。你没说下一句。但风替你们说了。', syncChange: 3, nextNode: 'chengye_area3_core' }
+    ]
+};
+GAME_DATA.chengye.chengye_area3_core = {
+    id: 'chengye_area3_core', name: '核心场景 · 山顶对话',
+    text: '你们并肩站着，看了很久的海。\n\n最后，江砚白开口：\n\n“你是第二个来这里的人。”\n\n你侧头看他。\n\n他没看你，继续看着海：\n\n“第一个是我自己。”\n\n你的心跳漏了一拍。',
+    options: [
+        { text: '“我很荣幸。”', popup: '你说得很轻，很认真。他顿了顿，然后轻轻“嗯”了一声。没别的了。但你知道他听懂了。你是第二个。除了他自己，只有你。这比任何话都重。', syncChange: 2, nextNode: 'chengye_area3_core_after' },
+        { text: '沉默，等他说下去', popup: '你没说话，只是看着他。你知道他还有话想说。他沉默了很久。然后他开口，声音更轻了：“我从来没想过……会有第二个人来这里。”你没接话。他继续说：“我以为这里只有我自己。一辈子都只有我自己。”他的声音顿了顿。“但你来了。”你看着他。他终于转过头，看着你。四目相对。你没说话。但你眼睛里的东西，你自己知道。他也知道。', syncChange: 3, nextNode: 'chengye_area3_core_after' },
+        { text: '“那我能不能......经常来？”', popup: '这话脱口而出。你有点后悔——太直白了。但你没收回。你看着他，等他的回答。他愣住了。他看着你，眼睛里有东西在动——惊讶、犹豫、还有一丝……期待？然后他移开视线。“……你想来就来。”他说得很轻，像是怕被人听见。但你听见了。你的心跳快得发疼。', syncChange: 4, nextNode: 'chengye_area3_core_after' }
+    ]
+};
+GAME_DATA.chengye.chengye_area3_core_after = {
+    id: 'chengye_area3_core_after', name: '核心场景 · 目光',
+    text: '江砚白转过头来看你。\n\n那一瞬间，风停了。\n\n他的眼睛里有东西在动——那是你从未见过的东西，像海面下涌动的暗流。\n\n你的喉咙发紧。你想说点什么，却发现自己的嘴唇在微微发抖。\n\n然后他移开了视线。\n\n“该出去了。”他说，声音比平时低了一点，“外面还有人在等你。”',
+    options: [
+        { text: '“好。”', popup: '你点头，转身准备离开。走出一步，你忽然停下。你想回头。但你没回。你只是说：“砚白哥。”“……嗯？”“等我出去……你还在这里吗？”他没回答。但你听见身后很轻的一声：“嗯。”你继续往前走。', syncChange: 1, nextNode: 'chengye_area3_farewell' },
+        { text: '站着没动，再看了他一眼', popup: '你没动。就站在那里，看着他。他等了一会儿，发现你没走，转过头来看你。你看着他，像是要把这一刻刻进眼睛里。他愣了一下。然后他轻轻弯了弯嘴角——很轻，几乎看不出来。但你看见了。你也弯了弯嘴角。然后你转身，离开。', syncChange: 2, nextNode: 'chengye_area3_farewell' },
+        { text: '说：“砚白哥。”', popup: '你叫了他一声。他顿住。你看着他的背影，说：“你的海，真的很漂亮。”他的肩膀轻轻动了一下。他没回头。但你看见他的耳朵，有一点点红。你转身，离开。走出很远，你还能感觉到——他还在那里，看着海，想着你说的话。', syncChange: 3, nextNode: 'chengye_area3_farewell' }
+    ]
+};
+GAME_DATA.chengye.chengye_area3_farewell = {
+    id: 'chengye_area3_farewell', name: '离开前的瞬间',
+    text: '你转身，准备离开。\n\n走出两步——\n\n“阿野。”\n\n你的脚步猛地停住。\n\n那是他的声音，很轻，被风吹得有点散。\n\n你回过头。\n\n他还站在原地，背对着你，看着海。风吹起他的衣摆，信鸽落在他肩上。\n\n“下次想来看海，”他说，“不用等我被困。”\n\n你站在原地，心跳擂鼓。',
+    options: [
+        { text: '“好。”', popup: '千言万语，只化作这一个字。你说了，他听见了。就够了。', syncChange: 2, nextNode: 'chengye_ending_trigger' },
+        { text: '“我会来的。”', popup: '这是承诺。你知道。他也知道。你看着他的背影，一字一字说得很清楚：“我会来的。”他的肩膀轻轻动了一下。然后他“嗯”了一声。很轻，但你听见了。', syncChange: 3, nextNode: 'chengye_ending_trigger' },
+        { text: '走回去，站在他身边', popup: '你走回去。一步一步，走回他身边。然后你站定，和他并肩站着，一起看着海。他侧头看你一眼。你没看他，只是看着海。但他没说话。你们就这样站着。风从海面吹来，带着咸味和草香。你们谁也没说话。但你知道，这比说话更重要。', syncChange: 4, nextNode: 'chengye_ending_trigger' }
+    ]
+};
+GAME_DATA.chengye.chengye_ending_trigger = {
+    id: 'chengye_ending_trigger', name: '离开',
+    text: '你退出了精神图景。\n\n最后一刻，你看见——\n\n山顶上，他一个人站着。\n\n风吹了很久。\n\n然后他伸出手，摸了摸信鸽的羽毛。\n\n轻声说了什么。\n\n被风吹散了。\n\n但你猜到了。\n\n因为你的心跳，还在为他跳着。',
+    options: [],
+    isEnding: true
+};
+
+// ==================== 江砚白视角节点（第一部分）====================
+GAME_DATA.jiangyanbai.jiangyanbai_area1_start = {
+    id: 'jiangyanbai_area1_start', name: '边缘地带 · 高架桥下',
+    text: '江砚白从意识深处浮起时，发现自己站在一座城市的边缘。\n\n不是普通的城市。这里的天永远不会亮——灰蒙蒙的穹顶下，高架桥纵横交错，玻璃幕墙的大厦林立，霓虹灯牌闪烁却寂静无声。远处有废弃的工业区，生锈的管道像巨兽的骨架。\n\n程野的精神图景。钢铁森林。\n\n江砚白从来没有从“外面”看过这里。\n\n他是程野的向导，每一次精神链接都是直接进入核心区域——巨树下。他见过那棵树的每一片叶子，感受过它根系的深度。但他从未见过这座城市的全貌。\n\n原来程野的图景这么大。原来他每天穿行的世界，是这样的。\n\n风从城市深处吹来，带着金属的味道和淡淡的烟火气。不是冷的风——程野的风里，有一种很轻的温暖，像深夜亮着灯的窗户。\n\n狼王从一条巷子里走出来。\n\n它看着他，没有像平时那样直接跑过来，而是慢慢走近，在他面前停下，然后低下头，蹭了蹭他的腿。\n\n江砚白蹲下来，伸手摸了摸它的头。\n\n“他在哪？”他轻声问。\n\n狼王朝城市深处看了一眼，然后转身，走了几步，回头看他——跟上来。',
+    options: [{ text: '探索高架桥下', nextNode: 'jiangyanbai_area1_point1' }]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area1_point1 = {
+    id: 'jiangyanbai_area1_point1', name: '桥墩上的爪痕',
+    text: '你走近那些爪痕。很深，像是狼王在这里磨过爪子，一遍又一遍。',
+    options: [
+        { text: '伸手触碰爪痕', popup: '指尖触到的瞬间，一丝情绪流进你意识里——等待。漫长的、日复一日的等待。狼王在这里等过很多次。从程野成为你哨兵的第一天起，它就经常在这里徘徊。等什么？等某个人从外面进来。等谁？答案你心里清楚。你收回手，心口有点软。', syncChange: 2, hiddenPerception: '狼王一直在等你', nextNode: 'jiangyanbai_area1_point1_after' },
+        { text: '问狼王：“你经常在这里等？”', popup: '你低头看着狼王。它低鸣一声，尾巴轻轻摇了摇。你懂了。它是在等。等那个能让它家的小狼王放松下来的人。等那个每次出现，程野的眉头就会松开的人。等的人是你。你蹲下来，又摸了摸它的头。“……辛苦了。”', syncChange: 2, nextNode: 'jiangyanbai_area1_point1_after' },
+        { text: '用自己的精神力感知爪痕上的残留', popup: '你闭上眼，将精神力探入那些爪痕。消耗。时间感涌来——不是一天两天，是很多天，很多次。从程野成为你哨兵的那天起，这些爪痕就开始出现。每一次你来之前，狼王都在这里等过。每一次。你睁开眼，喉结动了动。', syncChange: 3, cost: { type: '精神力', value: 3 }, nextNode: 'jiangyanbai_area1_point1_after' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area1_point1_after = {
+    id: 'jiangyanbai_area1_point1_after', name: '桥墩上的爪痕',
+    text: '你收回手，心口有点软。\n\n狼王一直在等你。从程野成为你哨兵的第一天起，它就在这里等。',
+    options: [{ text: '继续探索', nextNode: 'jiangyanbai_area1_point2' }]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area1_point2 = {
+    id: 'jiangyanbai_area1_point2', name: '第一片落叶',
+    text: '高架桥下的地面上，散落着一些东西——几片枯叶，一根羽毛，一小截被咬过的树枝。',
+    options: [
+        { text: '捡起羽毛', popup: '你拿起那根羽毛。灰白色的。不是狼王的毛——是你的信鸽的。它来过这里。在你之前。你把它握在手心，羽毛很轻，但你知道它有多重。', syncChange: 2, item: '信鸽的羽毛（来自程野的收藏）', nextNode: 'jiangyanbai_area1_point3' },
+        { text: '看那截树枝', popup: '树枝上有狼王咬过的痕迹，但树枝本身——不是这里的。是针叶树的枝。从你精神图景里飘来的。狼王把它叼到这里，咬过，然后留下。像是想留住什么。', syncChange: 2, hiddenPerception: '程野的图景里有你的东西', nextNode: 'jiangyanbai_area1_point3' },
+        { text: '让信鸽飞下来', popup: '信鸽从你肩头飞下，落在那堆东西旁边，歪着头看。然后它叼起那根羽毛，飞回你肩上，把羽毛放在你手心。它看着你，咕了一声。像是在说：这是你的。我帮你拿回来了。你轻轻弯了弯嘴角。', syncChange: 2, nextNode: 'jiangyanbai_area1_point3' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area1_point3 = {
+    id: 'jiangyanbai_area1_point3', name: '高架桥的方向',
+    text: '高架桥有两个方向。一条通向更深的城市中心，那里灯火更密；一条通向废弃厂区，那里更暗、更静。\n\n狼王站在通向城市中心的方向，回头看你。\n\n信鸽却飞向了废弃厂区，在空中盘旋。',
+    options: [
+        { text: '跟着狼王走', popup: '你跟着狼王，走向城市中心。那里的灯火更密，高楼更多，但你知道，那里有程野最常待的地方——核心区，巨树下。狼王朝那个方向跑几步，回头看你，再跑几步，再回头看你。它在带你去见他。', syncChange: 1, nextNode: 'jiangyanbai_area2_start' },
+        { text: '跟着信鸽走', popup: '信鸽在废弃厂区上空盘旋，像是发现了什么。你转身，朝那个方向走去。狼王愣了一下，然后跟上你，走在你身边。信鸽发现了什么？你很快会知道。', syncChange: 2, nextNode: 'jiangyanbai_area2_start' },
+        { text: '停下来感知程野的位置', popup: '你闭上眼，让自己的精神力扩散开去。消耗。两个方向，都有程野的波动。一个在核心区——那是他清醒时的位置。一个在废弃厂区——那是他沉睡时的位置。或者……受伤时的位置。你的心沉了一下。他不在一个地方。他分成了两处。', syncChange: 3, cost: { type: '精神力', value: 4 }, hiddenPerception: '程野的精神力分裂了', nextNode: 'jiangyanbai_area1_point4' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area1_point4 = {
+    id: 'jiangyanbai_area1_point4', name: '城市的风',
+    text: '站在高架桥下，你感觉到风在变化。\n\n有时候，风从城市深处吹来，带着烟火气和温暖。\n\n有时候，风突然转向，从你身后吹来——那是从你精神图景吹来的风，带着海的味道和松木的清香。',
+    options: [
+        { text: '闭上眼感受风的来去', popup: '你闭上眼，让风拂过脸颊。你感知到了——这座城市的“风向”一直在变化。有时候是程野的情绪在影响风。他开心时，风是暖的；他疲惫时，风是沉的。有时候，是你的情绪在影响风。你想他时，风就会从你那边吹来。你们的精神图景之间，有风在流动。', syncChange: 2, hiddenPerception: '你们之间有风', nextNode: 'jiangyanbai_area1_point5' },
+        { text: '问狼王：“你能感觉到我的风吗？”', popup: '你低头问狼王。狼王抬起头，鼻子动了动，嗅了嗅空气。然后它朝你靠近了一点，蹭了蹭你的腿。它能感觉到。它知道你的风是什么味道。', syncChange: 1, nextNode: 'jiangyanbai_area1_point5' },
+        { text: '轻声说：“原来他也能感觉到我。”', popup: '你这话说得很轻。但说出来的瞬间，你忽然意识到——你一直以为只有你能感知到他。只有你能通过精神链接感受到他的状态、他的情绪、他的疲惫。但原来他也能。原来你的风，一直在往他那边吹。原来他早就感觉到了。你站在原地，心口有点热。', syncChange: 2, nextNode: 'jiangyanbai_area1_point5' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area1_point5 = {
+    id: 'jiangyanbai_area1_point5', name: '第一座大厦',
+    text: '高架桥尽头，第一座玻璃幕墙大厦矗立在路口。\n\n你走近时，忽然发现——玻璃幕墙上映出的不是你的脸。\n\n是画面。',
+    options: [
+        { text: '看第一块幕墙', popup: '幕墙上映出的是山脚阔叶林的画面。阳光透过树叶洒下来，小径蜿蜒向上，路边开着野花。那是你图景里最温和的区域。他看见的，是那个地方。', syncChange: 1, nextNode: 'jiangyanbai_area2_start' },
+        { text: '看第二块幕墙', popup: '幕墙上映出的是山腰针叶林。雾气弥漫，树木高耸，有些地方在崩塌。那是你处理黑暗的地方。他看见的，是那个地方。', syncChange: 1, nextNode: 'jiangyanbai_area2_start' },
+        { text: '看第三块幕墙', popup: '幕墙上映出的是山顶，那片海。蔚蓝、辽阔、没有边际。那是你最私密的地方。从来没有第二个人去过的地方。他看见了。他一直能看见。你站在幕墙前，很久没动。', syncChange: 2, nextNode: 'jiangyanbai_area2_start' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area2_start = {
+    id: 'jiangyanbai_area2_start', name: '废弃厂区 · 初入',
+    text: '穿过高架桥，你来到一片废弃的工业区。\n\n生锈的管道像巨蟒一样盘在地上，倒塌的厂房墙壁上爬满了藤蔓，但藤蔓是灰色的——这里没有生命应有的绿色。\n\n这里对应程野执行过的案件，那些无法磨灭的记忆。\n\n每一座废弃的厂房，都是一段他无法忘记的过去。\n\n狼王变得安静了，走在你身边，偶尔用头蹭蹭你的腿——像是在安慰你，也像是在提醒你：这里对他来说，不轻松。',
+    options: [{ text: '探索第一座厂房', nextNode: 'jiangyanbai_area2_point1' }]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area2_point1 = {
+    id: 'jiangyanbai_area2_point1', name: '第一座厂房',
+    text: '你推开生锈的铁门，走进去。\n\n厂房里空荡荡的，只有一些废弃的机械。但墙上有东西——一幅幅画面，像投影一样在墙上播放。\n\n第一幅画面：\n\n程野第一次出任务。很年轻，眼神里还有警校生的青涩。他在追一个人，跑得很快。最后追上了，但那人回头时，手里有刀。程野躲开了，刀锋擦过他脸侧——没有伤到，只差一点。',
+    options: [
+        { text: '伸手触碰画面', popup: '指尖触到的瞬间，你感知到程野当时的情绪。不是恐惧。是——“幸好没伤到，不然砚白哥会担心”。那时候你们还没在一起工作。他还不是你哨兵。但他已经在想你了。你在想“幸好没伤到”。他在想“幸好没伤到，不然砚白哥会担心”。你的心口有点酸。', syncChange: 2, fragment: '第一次任务', nextNode: 'jiangyanbai_area2_point2' },
+        { text: '只是看着，不动', popup: '你想起他后来提过这件事。轻描淡写的，说“没事，差一点而已”。原来差一点，是这样的。原来他说的“没事”，背后是这样的画面。你垂下眼，没说话。', syncChange: 1, nextNode: 'jiangyanbai_area2_point2' },
+        { text: '问狼王：“他当时回来怎么说的？”', popup: '狼王低鸣一声。你从它的情绪里感知到：程野回来那天，在巨树下坐了很久，什么都没说。他没告诉任何人。包括你。你伸手摸了摸狼王的头。“……我知道了。”', syncChange: 1, nextNode: 'jiangyanbai_area2_point2' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area2_point2 = {
+    id: 'jiangyanbai_area2_point2', name: '第二座厂房',
+    text: '第二座厂房更大，墙上也有画面。\n\n程野和几个队友一起追捕嫌犯。嫌犯跑进一栋楼，程野第一个冲进去。楼里很黑，他打开手电，一点一点搜索。忽然有人从暗处冲出来——程野反应很快，躲开了，但队友在后面。他一把推开队友，自己撞在墙上。\n\n画面里，他撞得很重，但站起来时只是揉了揉肩膀，继续追。',
+    options: [
+        { text: '感知他的情绪', popup: '你探入精神力，感知那一刻他的情绪。那时候他想的不是自己疼不疼，是“还好推开他了”。他没想过自己。他想的是别人。他一直是这样。', syncChange: 1, fragment: '推开队友', nextNode: 'jiangyanbai_area2_point3' },
+        { text: '注意到一个细节', popup: '你盯着画面，忽然发现——他撞墙后站起来时，朝某个方向看了一眼。那个方向，是你办公室的方向。他那时候在想什么？在想你会不会知道？在想你会不会担心？你看着那个画面里的他，年轻的他，撞了墙还朝你那边看的他。心口有什么东西软了一下。', syncChange: 2, nextNode: 'jiangyanbai_area2_point3' },
+        { text: '问狼王：“他后来去医务室了吗？”', popup: '狼王摇头。他没去。他揉了揉肩膀，继续追。追完回来，继续工作。什么都没说。你垂下眼。“知道了。”', syncChange: 0, nextNode: 'jiangyanbai_area2_point3' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area2_point3 = {
+    id: 'jiangyanbai_area2_point3', name: '管道迷宫',
+    text: '厂区深处，是一片生锈的管道迷宫。管道纵横交错，有些地方很低，需要弯腰才能通过。\n\n狼王朝一个方向跑去，很快消失在管道间。\n\n你等了等，它没回来。',
+    options: [
+        { text: '跟着狼王的方向走', popup: '你弯腰钻进去，在管道间穿行。管道很窄，有些地方要侧身才能过。内壁上有爪痕——狼王经常来这里。你顺着爪痕往前走，一步一步，越来越深。最后，你来到一个小空间。', syncChange: 2, nextNode: 'jiangyanbai_hidden_pipe' },
+        { text: '释放信鸽探路', popup: '信鸽飞进管道，片刻后传来咕咕声。你顺着声音钻进去。管道很暗，但信鸽的叫声在前面引路。最后，你来到一个小空间。', syncChange: 1, nextNode: 'jiangyanbai_hidden_pipe' },
+        { text: '用自己的精神力感知', popup: '你闭上眼，让精神力探入管道深处。消耗。你感知到了——程野的情绪残留。很深的疲惫，还有一点点……委屈？他在这里消化过那些不能让人看见的情绪。你顺着感知往前走，穿过低矮的管道，最后来到一个小空间。', syncChange: 2, cost: { type: '精神力', value: 3 }, nextNode: 'jiangyanbai_hidden_pipe' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_hidden_pipe = {
+    id: 'jiangyanbai_hidden_pipe', name: '隐藏区域 · 管道空间',
+    text: '你走进那个小空间。\n\n狼王在这里。它卧在地上，头枕着前爪。\n\n旁边，有一小块空地，地上铺着一些干草和羽毛——是狼王给自己做的窝。\n\n但它很少睡在这里。因为这里，是程野每次任务后来“消化”情绪的地方。\n\n你感知到的疲惫和委屈，就是他从这里留下的。',
+    options: [
+        { text: '伸手触碰那些干草', popup: '干草很软，上面有他的气息。你触碰的瞬间，感知到更多的情绪——疲惫、委屈、还有一丝很淡的……“不能说”。他在这里消化那些不能对任何人说的东西。包括你。', syncChange: 2, hiddenPerception: '他在这里消化不能说的事', nextNode: 'jiangyanbai_area2_point4' },
+        { text: '捡起一根羽毛', popup: '干草里混着一根灰白色的羽毛。是你的信鸽的。他留着。他来这里的时候，会带着你的羽毛。你握紧那根羽毛，心口有点发紧。', syncChange: 2, item: '隐藏的羽毛', nextNode: 'jiangyanbai_area2_point4' },
+        { text: '只是看着，不说话', popup: '你只是看着这个地方。看着狼王，看着干草，看着那些他留下的痕迹。你想象他一个人蜷在这里的样子。你垂下眼，什么都没说。但你知道，你记住了。', syncChange: 1, nextNode: 'jiangyanbai_area2_point4' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area2_point4 = {
+    id: 'jiangyanbai_area2_point4', name: '生锈的楼梯',
+    text: '厂区最深处，有一架生锈的楼梯，通向一个高处的平台。\n\n楼梯看起来很危险，有些踏板已经锈穿了。\n\n狼王在楼梯下停下来，抬头看着上面，然后回头看你——它想上去，但它在等你决定。',
+    options: [
+        { text: '试着走上去', popup: '你踩着楼梯，一级一级往上走。有些踏板在你踩上去时发出嘎吱声，有些已经锈穿了，你要跨过去。但你上去了。平台上很空旷，只有一个生锈的铁箱子。', syncChange: 2, nextNode: 'jiangyanbai_hidden_platform' },
+        { text: '让信鸽先飞上去看看', popup: '信鸽飞上去，在平台上盘旋，然后飞回来，蹭你的脸。上面安全。但有东西。你开始爬楼梯。', syncChange: 1, nextNode: 'jiangyanbai_hidden_platform' },
+        { text: '用精神力感知上面', popup: '你闭上眼，让精神力探上去。消耗。上面有程野的气息，很浓。他经常一个人来这里。你睁开眼，开始爬楼梯。', syncChange: 2, cost: { type: '精神力', value: 3 }, nextNode: 'jiangyanbai_hidden_platform' }
+    ]
+};
+// ==================== 江砚白视角节点（第二部分）====================
+GAME_DATA.jiangyanbai.jiangyanbai_hidden_platform = {
+    id: 'jiangyanbai_hidden_platform', name: '隐藏区域 · 平台上的收藏盒',
+    text: '你爬上平台，走到铁箱子前。\n\n打开箱子——\n\n里面放着一些东西：\n\n· 几片灰白色的羽毛，是你的信鸽的\n· 一张便签，上面是你的笔迹，写着某次案件的分析\n· 一小截松枝，从你图景里飘来的\n· 一块石头，很普通，但上面刻着一个字：“白”',
+    options: [
+        { text: '拿起羽毛', popup: '每一片羽毛你都认识。是信鸽在不同时期掉落的。他收集了。全部收集了。从你成为他向导的第一天起，他就在收集。', syncChange: 2, nextNode: 'jiangyanbai_area2_point5' },
+        { text: '看那张便签', popup: '是你随手写的，某次案件的分析。你早就忘了。但他留着。叠得整整齐齐，放在箱子里。你想起那次案件，想起他坐在你旁边听你分析的样子。原来那时候，他在听的不只是案件。', syncChange: 2, fragment: '那次案件', nextNode: 'jiangyanbai_area2_point5' },
+        { text: '拿起那块石头', popup: '石头上刻着一个字：“白”。你的名字里的字。你翻过来看，背面还有一行小字，刻得很浅，像是怕被人看见：“想让他来。”你的手顿住了。想让他来。想让你来他的图景。想让你来他的世界。他一直想让你来。', syncChange: 3, hiddenPerception: '他一直想让你来', nextNode: 'jiangyanbai_area2_point5' },
+        { text: '试图把整个盒子带走', popup: '你伸手想把整个盒子拿起来，带走。但就在你触碰盒底的瞬间，整个平台开始剧烈晃动——铁箱里涌出黑色的雾气，那是被他藏起来的、所有不敢让你知道的情绪。你被雾气吞没，意识一片混乱。醒来时，你已经退出精神图景，头痛欲裂。程野坐在你身边，眼神里有担忧，也有不解。“你怎么了？”他问。你不知道怎么回答。你知道，有些东西，不能强行拿走。', syncChange: -5, customEnding: 'ending_jiang_06' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area2_point5 = {
+    id: 'jiangyanbai_area2_point5', name: '第三座厂房',
+    text: '第三座厂房最小，也最偏僻。\n\n门半开着。\n\n你推门进去——\n\n里面只有一个画面，在墙上静静地播放：\n\n程野受了伤，坐在医务室里。医生在给他包扎，他低着头，看不见表情。\n\n门开了。你走进来。\n\n画面里的程野抬起头，看见你的一瞬间，他的眼神变了——从忍着疼的倔强，变成了一种很轻的、几乎看不出来的放松。\n\n你走过去，在他身边坐下，什么都没说，只是陪着他。\n\n画面定格在这个瞬间。',
+    options: [
+        { text: '看着那个瞬间', popup: '你看着画面里的他，看着那个眼神。那时候你只是觉得应该去看看他。只是觉得他在医务室，应该有人陪。原来他看着你的时候，是这样的眼神。原来你“只是去陪他”的时候，对他来说，是这样的事。', syncChange: 2, fragment: '你在的时候', nextNode: 'jiangyanbai_area3_start' },
+        { text: '伸手触碰画面里的他', popup: '你伸出手，指尖触碰到画面里他的脸。触到的瞬间，你感知到他当时的情绪——疼，但更强烈的是，安心。你来了，他就安心了。你收回手，心口有点酸。', syncChange: 3, cost: { type: '精神力', value: 2 }, nextNode: 'jiangyanbai_area3_start' },
+        { text: '只是站着，不说话', popup: '你就站在那里，看着那个画面。看着他的眼神，看着你走进去的样子，看着你们并排坐着的画面。很久很久。然后你轻声说：“我会一直来。”画面不会动。但他会知道吗？会的。你会让他知道。', syncChange: 1, nextNode: 'jiangyanbai_area3_start' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_start = {
+    id: 'jiangyanbai_area3_start', name: '核心空地 · 巨树下',
+    text: '穿过废弃厂区，眼前豁然开朗。\n\n一片被钢铁森林包围的空地。四周是高楼大厦，但中间有一片开阔地，地上是柔软的草地——这是整座钢铁森林里，唯一有绿色的地方。\n\n中央，一棵巨树。\n\n树冠遮天蔽日，根系深深扎进混凝土之下。树干很粗，要几个人才能合抱。\n\n狼王走到树下，卧下。\n\n程野靠在树干上，闭着眼。\n\n他蜷缩着，像一个在等什么人的孩子。',
+    options: [{ text: '走近他', nextNode: 'jiangyanbai_area3_point1' }]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_point1 = {
+    id: 'jiangyanbai_area3_point1', name: '走近他',
+    text: '你走过去，在他面前蹲下。\n\n他闭着眼，眉头轻轻皱着。呼吸很平稳，但嘴唇抿得很紧——即使在睡梦中，他也在忍着什么。\n\n你伸出手，想帮他梳理一下那些乱成一团的感知——\n\n指尖刚触到他额头的瞬间，他动了动。\n\n“砚白哥......”他轻声呢喃。\n\n你的手顿住了。\n\n他没醒，只是下意识地叫了你的名字。',
+    options: [
+        { text: '继续梳理', popup: '你轻轻探入精神力，帮他平复那些残留的混乱。消耗。他的眉头慢慢舒展开，呼吸变得更平稳。你收回手，看着他安静下来的脸。“……我在。”你轻声说。', syncChange: 2, cost: { type: '精神力', value: 3 }, nextNode: 'jiangyanbai_area3_point2' },
+        { text: '收回手，只是看着他', popup: '你把手收回来。就蹲在他面前，看着他。他睡着的样子，和醒着不一样。醒着的时候，他总是在看什么，总是在听什么，总是在保护什么。睡着的时候，他只是他自己。你就这样看着，很久很久。', syncChange: 1, nextNode: 'jiangyanbai_area3_point2' },
+        { text: '轻声回应：“我在。”', popup: '你不知道他能不能听见，但还是说了。“我在。”他的眉头轻轻动了一下，然后更舒展了。他听见了。或者感觉到了。你在。', syncChange: 2, nextNode: 'jiangyanbai_area3_point2' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_point2 = {
+    id: 'jiangyanbai_area3_point2', name: '树下的痕迹',
+    text: '你环顾四周。巨树下有很多痕迹——狼王卧过的地方，磨过爪子的树根，还有......\n\n一些你不认识的东西。',
+    options: [
+        { text: '树根上的刻痕', popup: '你蹲下来看那些刻痕。很浅，像是用指甲划的。有些是日期，有些是简单的符号——你认出其中几个日期。是你和他第一次任务的日子。是他成为你哨兵的日子。是你第一次给他梳理精神图景的日子。是你第一次叫他“阿野”的日子。每一个重要的日子，他都刻在这里。', syncChange: 2, hiddenPerception: '他记住了每一个日子', nextNode: 'jiangyanbai_area3_point3' },
+        { text: '树下的一小堆石头', popup: '你看见一小堆石头，码得整整齐齐。每块石头上都刻着一个字。你一块一块拿起来看：“江”“砚”“白”。三块石头。三个字。你的名字。他刻的。放在这里。', syncChange: 2, hiddenPerception: '他把你的名字刻在石头上', nextNode: 'jiangyanbai_area3_point3' },
+        { text: '树洞里藏着的东西', popup: '树干上有一个洞，不大，但足够伸手进去。你犹豫了一下，然后伸手。摸到一个小盒子。拿出来，打开——', syncChange: 0, nextNode: 'jiangyanbai_hidden_letters' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_hidden_letters = {
+    id: 'jiangyanbai_hidden_letters', name: '隐藏区域 · 树洞里的信',
+    text: '盒子里是信。\n\n很多封，叠得整整齐齐。\n\n最上面一封的日期是今天。\n\n你打开，上面只有一行字：\n\n“砚白哥今天没来。他是不是累了？”\n\n你的心口一紧。\n\n你翻看下一封：\n\n“砚白哥帮我梳理的时候，手很轻。他知不知道我喜欢他？”\n\n再下一封：\n\n“今天差点说漏嘴了。还好他转头了。”\n\n再下一封：\n\n“我想让他来看我的树。但不知道怎么开口。”\n\n一封一封，全是这样的句子。\n\n从来没寄出去的信。从来没说过的话。\n\n你一封一封看下去：\n\n第一年：“今天第一次见他。他穿灰色毛衣。我想记住他。”\n\n第二年：“他记得我的名字。他叫我程野。就两个字，我高兴了一整天。”\n\n第三年：“他成了哥哥的搭档。我能经常看见他了。我是不是应该满足了？但我还想更多。”\n\n第四年：“今天他问我，程野，你是不是累了？他看出来了。他看出来了！”\n\n第五年：“我成为他哨兵了。以后能天天见到他。我要控制住自己，不能让他发现。”\n\n第六年：“控制不住了。我好想告诉他。但不行。说了他会躲吗？他会不会觉得我烦？”\n\n第七年：“今天又写了一封。第一百三十七封了。一封都没寄出去。”\n\n第八年：“他在我精神图景里的时候，我的树会高兴。他走了，树就蔫几天。树都知道我喜欢他，就他不知道。”\n\n第九年：“今天差点说了。真的只差一点点。但他转头了。他是不是故意的？他是不是知道，所以假装没听见？”\n\n第十年：“砚白哥今天没来。他是不是累了？”\n\n信到这里结束。\n\n你捧着那些信，很久很久。\n\n十年。他写了十年。\n\n从第一次见到你那天开始，一直写到现在。',
+    options: [
+        { text: '把信放回原处', popup: '你一封一封，轻轻叠好，放回盒子里。十年。一百多封信。他从没寄出过一封。你把盒子放回树洞，手停在树干上，很久很久。你不知道该说什么。你只知道，你记住了。全部记住了。', syncChange: 3, item: '程野的信', nextNode: 'jiangyanbai_area3_point3' },
+        { text: '拿出一封贴身收好', popup: '你犹豫了一下，从中间抽出一封——最早的那封，第一年写的。“今天第一次见他。他穿灰色毛衣。我想记住他。”你把信折好，贴胸收好。这是他的第一句话。你想替他留着。心跳声在这座钢铁森林里，清晰可闻。', syncChange: 4, nextNode: 'jiangyanbai_area3_point3' },
+        { text: '试图把所有信都带走', popup: '你把所有信都拿出来，想全部带走。就在你捧起它们的瞬间，巨树开始剧烈摇晃——树叶纷落，地面开裂。那些信里承载的、十年的重量，一瞬间全部压向你。你承受不住。意识被黑暗吞没。醒来时，你躺在自己办公室的沙发上，浑身冷汗。程野的消息在手机上闪烁：“砚白哥？你还好吗？”你看着那行字，久久无法回复。你知道，你试图带走的，是他十年的心。太重了。', syncChange: -5, customEnding: 'ending_jiang_07' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_point3 = {
+    id: 'jiangyanbai_area3_point3', name: '狼王和信鸽',
+    text: '狼王还卧在那里，看着你。\n\n信鸽从你肩头飞下来，落在狼王背上。\n\n两个精神体就这样待着，一个灰白色的狼，一只灰白色的鸽子。',
+    options: [
+        { text: '轻声说：“你们倒是比我们自在。”', popup: '狼王耳朵动了动，像是在笑。信鸽咕了一声，蹭了蹭狼王的毛。它们确实比你们自在。它们不用藏，不用忍，不用写十年不寄的信。你看着它们，嘴角轻轻弯了一下。', syncChange: 1, nextNode: 'jiangyanbai_area3_point4' },
+        { text: '走过去，在狼王身边坐下', popup: '你走过去，在狼王身边坐下。伸手摸了摸它的头。它蹭了蹭你的手心，然后继续卧着。信鸽飞起来，落在你肩上。你就这样坐着，和它们一起，等着他醒。', syncChange: 2, nextNode: 'jiangyanbai_area3_point4' },
+        { text: '什么都不说，只是看着', popup: '你就站在那里，看着它们。看着狼王，看着信鸽，看着这两个本该属于不同世界的生命，这样安静地待在一起。它们能做你们不能做的事。但没关系。你看着它们，就像看见了你们。', syncChange: 1, nextNode: 'jiangyanbai_area3_point4' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_point4 = {
+    id: 'jiangyanbai_area3_point4', name: '树上的叶子',
+    text: '巨树上，有些叶子的颜色不太一样。\n\n你仔细看——那些叶子，不是这棵树的叶子。是针叶，是松叶，是从你图景里飘来的叶子，落在了他的树上。\n\n它们被小心地夹在枝桠间，没有掉落。',
+    options: [
+        { text: '伸手触碰那些叶子', popup: '你伸手，轻轻碰了碰其中一片松叶。它被固定得很好，风吹不掉。是他故意留着的。每一片都留着。你图景里飘来的每一片，他都留着。你收回手，心口有点热。', syncChange: 2, hiddenPerception: '他留着你的一切', nextNode: 'jiangyanbai_area3_core' },
+        { text: '问狼王：“他一直留着？”', popup: '狼王低鸣一声，尾巴摇了摇。是的。每一片都留着。从你们成为搭档那天起，他就开始收集。你图景里的东西，他一样都没丢过。', syncChange: 1, nextNode: 'jiangyanbai_area3_core' },
+        { text: '轻声说：“原来你收着。”', popup: '你这话说得很轻。但说出来的瞬间，你想起自己图景里那些从钢铁森林飘来的落叶。你也留着。你一片都没丢过。原来你们一样。', syncChange: 2, nextNode: 'jiangyanbai_area3_core' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_core = {
+    id: 'jiangyanbai_area3_core', name: '核心对话 · 巨树下的对话',
+    text: '你在他身边坐下来，背靠着树干。\n\n狼王卧在你另一边，信鸽在你肩上。\n\n风从城市深处吹来，带着烟火气。\n\n过了很久，他动了动。\n\n然后他睁开眼，看着你。\n\n他的眼睛里有短暂的茫然，然后渐渐聚焦。\n\n“......江砚白？”\n\n“嗯。”\n\n“你怎么进来的？”',
+    options: [
+        { text: '“你叫我进来的。”', popup: '他愣了一下。然后他想起——梦里喊过你的名字。很多次。他垂下眼，耳朵尖有点红。你没说话，只是看着他。', syncChange: 2, nextNode: 'jiangyanbai_area3_core_continue' },
+        { text: '“我不进来，谁进来？”', popup: '他垂下眼，没说话。但你知道他在想什么——他在想“你怎么每次都来”。你每次都来。每次他需要的时候，你都在。你不知道怎么解释。你只是……会来。', syncChange: 2, nextNode: 'jiangyanbai_area3_core_continue' },
+        { text: '沉默片刻，然后说：“我担心你。”', popup: '这是真话。你确实是担心他。从感知到他精神力分裂的那一刻起，你就一直担心。他看着你，眼睛里有东西在动。“……我知道。”他说。你知道他担心你吗？你知道每次你出事，他都在担心吗？他不知道怎么问。你也不知道怎么答。但你们都知道对方在担心。', syncChange: 3, nextNode: 'jiangyanbai_area3_core_continue' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_core_continue = {
+    id: 'jiangyanbai_area3_core_continue', name: '核心对话 · 那些信',
+    text: '他坐起来，靠在你旁边，没说话。\n\n你们就这样坐着。\n\n过了很久，他开口：\n\n“你看到那些信了吗？”',
+    options: [
+        { text: '“看到了。”', popup: '你诚实地说。他低下头，耳朵更红了。“……别看。”“已经看了。”他没说话。你也没说话。但你知道，从这一刻起，有些东西不一样了。', syncChange: 1, nextNode: 'jiangyanbai_area3_core_final' },
+        { text: '沉默，然后点头', popup: '你不知道该说什么，只是点了点头。他看见了你的动作。他把脸埋进膝盖里。“……十年。”他的声音闷闷的，“我写了十年。”你的心口一紧。十年。从第一次见面开始。你伸手，想碰他的肩，但又缩回来。你没说话。但你知道，你记住了。', syncChange: 2, nextNode: 'jiangyanbai_area3_core_final' },
+        { text: '反问：“你想让我看到吗？”', popup: '他看着你，眼睛里有东西在动。“……想。”他说，声音很轻，“也不想。”想让你知道。又怕你知道了会躲。你懂他的意思。你看着他，说：“我知道了。”他没问你知道什么。但他看着你的眼神，有点不一样了。', syncChange: 2, nextNode: 'jiangyanbai_area3_core_final' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_core_final = {
+    id: 'jiangyanbai_area3_core_final', name: '核心对话 · 最后的话',
+    text: '他的喉结动了动。\n\n“......我写了很多年。”\n\n你看着他。\n\n他没看你，看着巨树的树冠：\n\n“从警校那年开始。你第一次来给我们讲课。你穿着那件灰色毛衣，站在讲台上，讲行为分析。我坐在最后一排，看了你整整两个小时。”\n\n你的心跳漏了一拍。\n\n他继续说：\n\n“后来你成了哥哥的搭档。我每次去找哥哥，都能看见你。你有时候在看书，有时候在写东西，有时候就坐在那里发呆。我每次都想过去说话，但每次都没敢。”\n\n“再后来，我成了你的哨兵。”\n\n他转过头，看着你。\n\n“我以为能天天见到你，就能少写一点信。结果写得更多了。”',
+    options: [
+        { text: '“为什么不告诉我？”', popup: '声音很轻。他垂下眼：“怕你躲。”怕你知道了，就不再来了。怕你知道了，就不再像以前那样对他。怕失去你。所以你一直没说。', syncChange: 1, nextNode: 'jiangyanbai_area3_core_last' },
+        { text: '沉默，只是看着他', popup: '你不知道该说什么。只是看着他，看着这个写了十年信的人，这个从第一次见面就记住你的人。你的心口很满，满得说不出话。', syncChange: 2, nextNode: 'jiangyanbai_area3_core_last' },
+        { text: '伸手，轻轻碰了碰他的脸', popup: '你抬起手，轻轻碰了碰他的脸。他愣住了。你的手还停在他脸侧。他看着你，眼睛里有光在晃动。“砚白哥……”“嗯。”“你……”他没说完。因为你靠过去，轻轻抵住了他的额头。精神链接在这一刻变得无比清晰——你们能感知到对方此刻的心跳，都是乱的。', syncChange: 4, cost: { type: '精神力', value: 2 }, nextNode: 'jiangyanbai_area3_core_last' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_core_last = {
+    id: 'jiangyanbai_area3_core_last', name: '核心对话 · 不用写了',
+    text: '你们就这样抵着额头，很久很久。\n\n风吹过，带着钢铁森林的气息和海的味道。\n\n最后，你开口，声音很轻：\n\n“阿野。”\n\n他的呼吸停了一拍。\n\n“那些信......”你说，“不用写了。”\n\n他愣住了。\n\n你退开一点，看着他的眼睛：\n\n“以后有什么想说的，直接告诉我。”\n\n他的喉结动了动，嘴唇动了动——\n\n然后他移开视线。\n\n“......好。”\n\n你知道他差点说什么。你也知道自己差点说什么。\n\n但都没说。',
+    options: [{ text: '准备离开', nextNode: 'jiangyanbai_area3_farewell' }]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_area3_farewell = {
+    id: 'jiangyanbai_area3_farewell', name: '离开前的瞬间',
+    text: '你站起来，准备退出精神图景。\n\n“江砚白。”\n\n你回头。\n\n他还坐在树下，看着你。\n\n“下次......”他说，“你什么时候再来？”',
+    options: [
+        { text: '“你想让我来的时候。”', popup: '他愣了一下。然后他轻声说：“那我现在就想。”你看着他。他的耳朵很红，但没移开视线。“……好。”你说。', syncChange: 2, nextNode: 'jiangyanbai_ending_trigger' },
+        { text: '“等你叫我的时候。”', popup: '他点头：“那我叫的时候，你一定要来。”“一定。”他看着你，轻轻弯了弯嘴角。那是你见过的最轻的笑。但你记住了。', syncChange: 2, nextNode: 'jiangyanbai_ending_trigger' },
+        { text: '“随时。”', popup: '你看着他，轻轻弯了弯嘴角。“随时。”他愣住了。然后他低下头，耳朵尖红了。你转身，离开。身后，他的声音很轻地传来：“……那我随时都想。”你的脚步顿了顿。然后你继续往前走。嘴角一直弯着。', syncChange: 3, nextNode: 'jiangyanbai_ending_trigger' }
+    ]
+};
+GAME_DATA.jiangyanbai.jiangyanbai_ending_trigger = {
+    id: 'jiangyanbai_ending_trigger', name: '离开',
+    text: '你转身，离开。\n\n走出几步——\n\n“砚白哥！”\n\n你回头。\n\n他还坐在那里，看着你。\n\n“......路上小心。”\n\n你点点头。\n\n然后你退出了他的精神图景。\n\n最后一刻，你看见——\n\n他还坐在巨树下，看着你离开的方向。\n\n狼王站起来，走到他身边，卧下。\n\n信鸽从你肩头飞回去，落在他肩上。\n\n他看着信鸽，轻声说了什么。\n\n被风吹散了。\n\n但你猜到了。\n\n因为你的心跳，还在为他跳着。',
+    options: [],
+    isEnding: true
+};
+
+// ==================== 结局数据 ====================
+ENDINGS.chengye.ending_chengye_01 = { id: 'ending_chengye_01', name: '沉默的海', desc: '你成功把他带出来了。\n\n但他醒来后，很沉默。你们坐在他公寓里，谁也没说话。\n\n最后他开口：“谢谢。”\n\n你点头：“嗯。”\n\n你起身离开。走到门口时，你回头看他——他已经背过身去，看着窗外。\n\n那一声“阿野”，像是从来没有发生过。\n\n后来你问自己：那天在山顶，他真的叫了吗？还是你听错了？\n\n你不知道答案。\n\n但你知道，从那以后，你的海面上，再也没有倒映出他的城市。' };
+ENDINGS.chengye.ending_chengye_02 = { id: 'ending_chengye_02', name: '不说的约定', desc: '他醒来后，靠在你肩上喘了很久。\n\n然后他坐起来，看着你，说：“以后别进来了。”\n\n你皱眉：“为什么？”\n\n他没回答。\n\n但你知道答案：他不想让你看见那些黑暗。不想让你知道他藏起来的地方。不想让你看见那些信鸽的血、那些崩塌的悬崖。\n\n你站起来，说：“下次你困住自己，我还是会进来。”\n\n他抬头看你，眼睛里有东西闪了一下。\n\n然后他低下头，什么都没说。\n\n但你看见他的嘴角，轻轻弯了一下。' };
+ENDINGS.chengye.ending_chengye_03 = { id: 'ending_chengye_03', name: '风的方向', desc: '他醒来后，看了你很久。\n\n然后他伸手，拂去你肩上的一根羽毛——是信鸽留下的。\n\n“阿野，”他说，“谢谢你进来。”\n\n那是他第一次清醒时叫你阿野。\n\n你的心跳很快，但你只是点头：“嗯。”\n\n他没再说什么。你也没再问。\n\n但那天之后，你发现自己的精神图景里，偶尔会飘来一阵海风。\n\n不是每次都有。但每次飘来的时候，你都会停下手里的事，闭上眼，感受那阵风。\n\n你知道那是他在想你。' };
+ENDINGS.chengye.ending_chengye_04 = { id: 'ending_chengye_04', name: '触碰', desc: '他醒来后，没有立刻说话。\n\n他只是看着你，看了很久很久。\n\n然后他伸手，轻轻碰了碰你的脸。\n\n“砚白哥......”\n\n“嗯。”\n\n“你碰我了。”\n\n他愣了一下，然后轻轻弯了弯嘴角。\n\n“嗯。”他说，“我碰了。”\n\n你们都没再说话。\n\n但那天之后，他碰你的次数变多了。\n\n有时候是拂去肩上的灰，有时候是递东西时手指的轻触，有时候是精神梳理时多停留的那一秒。\n\n每一次，你都记住了。' };
+ENDINGS.chengye.ending_chengye_05 = { id: 'ending_chengye_05', name: '随时可以来的海', desc: '他醒来后，你们坐在他公寓里，谁也没说话。\n\n天快亮了。\n\n你站起来，准备离开。\n\n“程野。”他叫住你。\n\n你回头。\n\n他站在窗边，晨光照在他身上。\n\n“下次，”他说，“你想看海的时候，直接进来。”\n\n你站在原地，心跳声震耳欲聋。\n\n“......好。”\n\n你推开门，走进清晨的风里。\n\n身后，他的声音很轻地传来：\n\n“阿野，路上小心。”\n\n那天之后，你的海，随时为他开着。' };
+ENDINGS.chengye.ending_chengye_06 = { id: 'ending_chengye_06', name: '崩塌的记忆', desc: '你试图推倒石碑，触动了江砚白最深层的创伤。\n\n整个精神图景在你面前崩塌。\n\n你被弹了出来，浑身冷汗。\n\n他坐在你对面，脸色苍白，眼神里有恐惧，也有失望。\n\n“有些记忆……不能碰。”他轻声说。\n\n你知道，短期内，你再也进不去了。' };
+
+ENDINGS.jiangyanbai.ending_jiang_01 = { id: 'ending_jiang_01', name: '沉默的城市', desc: '你找到了他，带他出来了。\n\n但他醒来后，很沉默。你们坐在他办公室里，谁也没说话。\n\n最后他开口：“谢谢。”\n\n你点头：“嗯。”\n\n你起身离开。走到门口时，你回头看他——他已经背过身去，看着窗外。\n\n那些信的事，谁也没再提。\n\n但你后来发现，你的精神图景里，钢铁森林的倒影变淡了。\n\n越来越淡。\n\n最后只剩下那棵巨树，孤零零地立在海面上。' };
+ENDINGS.jiangyanbai.ending_jiang_02 = { id: 'ending_jiang_02', name: '不再写的信', desc: '他醒来后，看着你。\n\n“你看到了？”他问。\n\n你知道他问的是信。\n\n你点头。\n\n他低下头：“......别看。”\n\n你在他身边坐下：“已经看了。”\n\n他没说话。\n\n你也没说话。\n\n但那天之后，你再也没见他写过信。\n\n他不再写了。但他看你的眼神，和以前不一样了。\n\n有时候你看过去，会发现他在看你。你一看他，他就移开视线。\n\n你从来没问。\n\n但你知道，那些信虽然不写了，话却一直都在。' };
+ENDINGS.jiangyanbai.ending_jiang_03 = { id: 'ending_jiang_03', name: '等你叫我的时候', desc: '他醒来后，你们在巨树下坐了很久。\n\n最后他问：“你什么时候再来？”\n\n你看着他，说：“等你叫我的时候。”\n\n他点头：“那我叫的时候，你一定要来。”\n\n你说：“好。”\n\n那天之后，你偶尔会听见精神链接里传来很轻的声音——\n\n“江砚白。”\n\n不是有事。只是叫你的名字。\n\n每次听见，你都会弯一下嘴角。\n\n然后在下一次进入他的图景时，在他耳边轻轻说：\n\n“听见了。”' };
+ENDINGS.jiangyanbai.ending_jiang_04 = { id: 'ending_jiang_04', name: '直接说', desc: '他醒来后，靠在树上，看着你。\n\n“那些信......”他说，“本来打算一辈子都不让你看见。”\n\n你在他身边坐下：“现在看见了。”\n\n他垂下眼：“那你......”\n\n你没让他说完。\n\n你伸手，轻轻抵住他的额头。\n\n精神链接里，你传过去一句话：\n\n“以后不用写，直接说。”\n\n他愣住了。\n\n然后他轻轻“嗯”了一声。\n\n那天之后，他真的开始“直接说”了。\n\n有时候是“砚白哥，我今天有点累”，有时候是“砚白哥，你在吗”，有时候是“砚白哥，我想你了”。\n\n每一次，你都会回他：“在。”' };
+ENDINGS.jiangyanbai.ending_jiang_05 = { id: 'ending_jiang_05', name: '随时可以来的地方', desc: '他醒来后，你们在巨树下坐了很久。\n\n天快亮了——精神图景里的天亮。\n\n你站起来，准备离开。\n\n“江砚白。”\n\n你回头。\n\n他还坐在树下，看着你。\n\n“下次，”他说，“你想来的时候，直接来。”\n\n你站在原地，看着他。\n\n他继续说：“不用等我叫你。你什么时候想来，就来。”\n\n你的心跳很快。\n\n“......好。”\n\n你转身，离开。\n\n身后，他的声音很轻地传来：\n\n“砚白哥，路上小心。”\n\n那天之后，钢铁森林对你永远敞开。\n\n你随时可以来。\n\n他随时都在。' };
+ENDINGS.jiangyanbai.ending_jiang_06 = { id: 'ending_jiang_06', name: '强行保留', desc: '你试图带走那个收藏盒，却触动了程野最深层的情绪。\n\n黑色的雾气将你吞没，你被弹出精神图景。\n\n醒来时，程野坐在你身边，眼神里有担忧，也有不解。\n\n“你怎么了？”他问。\n\n你不知道怎么回答。\n\n你知道，有些东西，不能强行拿走。' };
+ENDINGS.jiangyanbai.ending_jiang_07 = { id: 'ending_jiang_07', name: '无法承受的重量', desc: '你想带走所有的信。\n\n巨树摇晃，地面开裂。\n\n那些信里承载的、十年的重量，一瞬间全部压向你。\n\n你承受不住。\n\n醒来时，你躺在自己办公室的沙发上，浑身冷汗。\n\n程野的消息在手机上闪烁：“砚白哥？你还好吗？”\n\n你看着那行字，久久无法回复。\n\n你知道，你试图带走的，是他十年的心。\n\n太重了。' };
+
+ENDINGS.hidden.ending_hidden = { id: 'ending_hidden', name: '风知道，海知道，树也知道', desc: '后来，有人问他们：\n\n“你们是怎么在一起的？”\n\n程野想了想，说：“没在一起。”\n\n问的人愣了：“啊？”\n\n江砚白在旁边看书，头也不抬：“他在胡说的。”\n\n程野看他一眼：“那我问你，我们什么时候在一起的？”\n\n江砚白翻了一页书：“从你第一次在精神图景里写信那天。”\n\n程野脸红了：“......那不是信！”\n\n“那是什么？”\n\n“那是......那是......”\n\n江砚白抬眼看他，嘴角轻轻弯着。\n\n程野不说话了。\n\n问的人更懵了：“所以到底在没在一起？”\n\n程野站起来，往外走：“我出任务了。”\n\n江砚白继续看书：“路上小心。”\n\n程野走到门口，回头看了一眼。\n\n江砚白还在看书，但嘴角的笑意没下去。\n\n程野也笑了一下，推门出去。\n\n问的人看向江砚白：“江教授，你们......”\n\n江砚白合上书，站起来，走到窗边。\n\n窗外，程野正走过院子，狼王跟在他身边。\n\n江砚白看着那个背影，轻声说：\n\n“有些事，不用说在一起。”\n\n“那怎么说？”\n\n他没回答。\n\n但这时，程野忽然在院子里停下来，回头朝他的方向看了一眼。\n\n隔着玻璃，隔着距离，隔着所有没说过的话——\n\n他们看着彼此。\n\n然后程野挥了挥手，继续往前走。\n\n江砚白嘴角弯起来。\n\n“就这样说。”' };
+
+// ==================== 初始化 ====================
+window.Game = Game;
+window.UI = UI;
+window.Save = Save;
+
+window.addEventListener('load', function() {
+    Save.init();
+    Game.init();
+    UI.init();
+});
+</script>
 </body>
 </html>
